@@ -12,7 +12,7 @@ namespace Stock_Checker
         /// <summary>
         /// アプリケーションのメイン エントリ ポイントです。
         /// </summary>
-        /// 
+        ///
         [STAThread]
         static void Main()
         {
