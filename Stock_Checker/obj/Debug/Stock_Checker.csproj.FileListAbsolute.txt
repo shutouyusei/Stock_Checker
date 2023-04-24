@@ -1,0 +1,11 @@
+D:\Visual Document\Stock_Checker\Stock_Checker\bin\Debug\Stock_Checker.exe.config
+D:\Visual Document\Stock_Checker\Stock_Checker\bin\Debug\Stock_Checker.exe
+D:\Visual Document\Stock_Checker\Stock_Checker\bin\Debug\Stock_Checker.pdb
+D:\Visual Document\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.csproj.AssemblyReference.cache
+D:\Visual Document\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.csproj.SuggestedBindingRedirects.cache
+D:\Visual Document\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.Form1.resources
+D:\Visual Document\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.Properties.Resources.resources
+D:\Visual Document\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.csproj.GenerateResource.cache
+D:\Visual Document\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.csproj.CoreCompileInputs.cache
+D:\Visual Document\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.exe
+D:\Visual Document\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.pdb

@@ -7,14 +7,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
+
 
 namespace Stock_Checker
 {
     public partial class Form1 : Form
     {
+
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string stock_code=Stock_code_text.Text;
+            if (stock_code.Length == 4)
+            {
+                Process.Start("notepad");
+            }
         }
     }
 }
