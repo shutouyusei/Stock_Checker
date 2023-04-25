@@ -85,5 +85,44 @@ namespace Stock_Checker
             //Console.WriteLine(data);
             return high;
         }
+        public int[] Get_Low(string stock_code)
+        {
+            string[,] csv_data = Read_csv(stock_code);
+            //Console.WriteLine(csv_data.GetLength(0));
+            int[] low = new int[csv_data.GetLength(0) - 1];
+            for (int i = 1; i < csv_data.GetLength(0); i++)
+            {
+                //Console.WriteLine(Int32.Parse(csv_data[i, 3]));
+                low[i - 1] = Int32.Parse(csv_data[i, 4]);
+            }
+            //Console.WriteLine(data);
+            return low;
+        }
+        public int[] Get_Close(string stock_code)
+        {
+            string[,] csv_data = Read_csv(stock_code);
+            //Console.WriteLine(csv_data.GetLength(0));
+            int[] close = new int[csv_data.GetLength(0) - 1];
+            for (int i = 1; i < csv_data.GetLength(0); i++)
+            {
+                //Console.WriteLine(Int32.Parse(csv_data[i, 3]));
+                close[i - 1] = Int32.Parse(csv_data[i, 5]);
+            }
+            //Console.WriteLine(data);
+            return close;
+        }
+        public int[] Get_Volume(string stock_code)
+        {
+            string[,] csv_data = Read_csv(stock_code);
+            //Console.WriteLine(csv_data.GetLength(0));
+            int[] volume = new int[csv_data.GetLength(0) - 1];
+            for (int i = 1; i < csv_data.GetLength(0); i++)
+            {
+                //Console.WriteLine(Int32.Parse(csv_data[i, 3]));
+                volume[i - 1] = Int32.Parse(csv_data[i, 6]);
+            }
+            //Console.WriteLine(data);
+            return volume;
+        }
     }
 }

@@ -55,7 +55,7 @@ namespace Stock_Checker
 
                     Show_stock show_Stock = new Show_stock();
                     //string[,] csv_data =show_Stock.Read_csv(stock_code);
-                    int[] open = show_Stock.Get_High(stock_code);
+                    //int[] open = show_Stock.Get_Volume(stock_code);
                 }
 
             }
