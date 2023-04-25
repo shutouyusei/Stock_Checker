@@ -47,7 +47,6 @@ namespace Stock_Checker
 
         public DateTime[] Get_date(string stock_code)
         {
-
             string[,] csv_data=Read_csv(stock_code);
             //Console.WriteLine(csv_data.GetLength(0));
             DateTime[] data = new DateTime[csv_data.GetLength(0)-1];
@@ -58,6 +57,20 @@ namespace Stock_Checker
             }
             //Console.WriteLine(data);
             return data;
+        }
+
+        public int[] Get_open(string stock_code)
+        {
+            string[,] csv_data = Read_csv(stock_code);
+            //Console.WriteLine(csv_data.GetLength(0));
+            int[] open = new int[csv_data.GetLength(0) - 1];
+            for (int i = 1; i < csv_data.GetLength(0); i++)
+            {
+                //Console.WriteLine(Int32.Parse(csv_data[i, 2]));
+                open[i - 1] = Int32.Parse(csv_data[i, 2]);
+            }
+            //Console.WriteLine(data);
+            return open;
         }
     }
 }
