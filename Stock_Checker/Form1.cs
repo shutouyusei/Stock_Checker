@@ -21,11 +21,17 @@ namespace Stock_Checker
         {
             InitializeComponent();
             // チャートの表示を初期化
-            ShowGraph showGraph = new ShowGraph();
-            showGraph.graph("7177");
             AllocConsole(); //デバック用
         }
 
+        private　void ShowGraph()
+        {
+            //windowsフォームチャートを表示
+            Show_stock show_Stock = new Show_stock();
+            string[,] csv_data = show_Stock.Read_csv("7177");
+            //データを追加
+
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             string stock_code=Stock_code_text.Text;
@@ -34,7 +40,7 @@ namespace Stock_Checker
                 int code;
                 if(int.TryParse(stock_code, out code))
                 {
-                    Show_stock show_Stock = new Show_stock();
+
                     //現在のディレクトリを取得
                     string currentDirectory = System.IO.Directory.GetCurrentDirectory();
                     //Console.WriteLine(currentDirectory);
@@ -44,8 +50,12 @@ namespace Stock_Checker
                     startInfo.WindowStyle = ProcessWindowStyle.Normal;
                     //ユーザーからの引数を用いてexe発行
                     startInfo.Arguments=stock_code;
-                    Process.Start(startInfo);
-                    string[,] csv_data =show_Stock.Read_csv(stock_code);
+                    Process p=Process.Start(startInfo);
+                    p.WaitForExit();
+
+                    Show_stock show_Stock = new Show_stock();
+                    //string[,] csv_data =show_Stock.Read_csv(stock_code);
+                    DateTime[] date = show_Stock.Get_date(stock_code);
                 }
 
             }

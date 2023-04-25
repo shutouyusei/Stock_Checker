@@ -8,12 +8,10 @@ namespace Stock_Checker
 {
     internal class Show_stock
     {
-        //現在のディレクトリを取得
-        private string currentDirectory = System.IO.Directory.GetCurrentDirectory();
-
         //csvファイルを読み取るメソッド
         public string[,] Read_csv(string stock_code)
         {
+            string currentDirectory = System.IO.Directory.GetCurrentDirectory();
             //csvファイルのパスを取得
             string csv_path = currentDirectory + "/csv_stock_data/s_stock_data_" + stock_code + ".csv";
             //csvファイルを読み取る
@@ -34,15 +32,32 @@ namespace Stock_Checker
                 }
             }
             //csvファイルのデータを表示
-            for (int i = 0; i < csv_data_length; i++)
-            {
-                for (int j = 0; j < csv_data_width; j++)
-                {
-                    Console.Write(csv_data_array[i, j] + " ");
-                }
-                Console.WriteLine();
-            }
+            //for (int i = 0; i < csv_data_length; i++)
+            //{
+            //    for (int j = 0; j < csv_data_width; j++)
+            //    {
+            //        Console.Write(csv_data_array[i, j] + " ");
+            //    }
+            //    Console.WriteLine();
+            //}
             return csv_data_array;
+        }
+
+        //DateTImeを取得する
+
+        public DateTime[] Get_date(string stock_code)
+        {
+
+            string[,] csv_data=Read_csv(stock_code);
+            //Console.WriteLine(csv_data.GetLength(0));
+            DateTime[] data = new DateTime[csv_data.GetLength(0)-1];
+            for (int i = 1; i < csv_data.GetLength(0); i++)
+            {
+                //Console.WriteLine( DateTime.Parse(csv_data[i, 0]));
+                data[i-1] =DateTime.Parse(csv_data[i, 0]);
+            }
+            //Console.WriteLine(data);
+            return data;
         }
     }
 }
