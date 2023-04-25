@@ -31,13 +31,17 @@ namespace Stock_Checker
                 int code;
                 if(int.TryParse(stock_code, out code))
                 {
-                    Console.WriteLine(System.AppDomain.CurrentDomain.BaseDirectory);
-                    ProcessStartInfo startInfo = new ProcessStartInfo("\"D:\\Visual Document\\Stock_Checker\\Stock_data\\Fetch_stock_py.exe\"");
+                    //現在のディレクトリを取得
+                    string currentDirectory = System.IO.Directory.GetCurrentDirectory();
+                    //Console.WriteLine(currentDirectory);
+
+                    ProcessStartInfo startInfo = new ProcessStartInfo(currentDirectory+"/Stock_data/Fetch_stock_py.exe");
                     startInfo.WindowStyle = ProcessWindowStyle.Normal;
                     //ユーザーからの引数を用いてexe発行
                     startInfo.Arguments=stock_code;
                     Process.Start(startInfo);
                 }
+
             }
         }
     }
