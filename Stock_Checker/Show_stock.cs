@@ -72,5 +72,18 @@ namespace Stock_Checker
             //Console.WriteLine(data);
             return open;
         }
+        public int[] Get_High(string stock_code)
+        {
+            string[,] csv_data = Read_csv(stock_code);
+            //Console.WriteLine(csv_data.GetLength(0));
+            int[] high = new int[csv_data.GetLength(0) - 1];
+            for (int i = 1; i < csv_data.GetLength(0); i++)
+            {
+                //Console.WriteLine(Int32.Parse(csv_data[i, 3]));
+                high[i - 1] = Int32.Parse(csv_data[i, 3]);
+            }
+            //Console.WriteLine(data);
+            return high;
+        }
     }
 }
