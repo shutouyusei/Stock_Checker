@@ -16,5 +16,15 @@ namespace Stock_Checker
         {
             InitializeComponent();
         }
+
+        private void X_Combo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Y_Combo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
