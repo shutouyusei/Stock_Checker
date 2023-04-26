@@ -21,14 +21,35 @@ namespace Stock_Checker
         {
             InitializeComponent();
             // チャートの表示を初期化
+            ShowGraph();
             AllocConsole(); //デバック用
         }
 
         private　void ShowGraph()
         {
-            //windowsフォームチャートを表示
+            //チャート の表示
+            chart1.Series.Clear();
+            chart1.Titles.Clear();
+            chart1.ChartAreas.Clear();
+            //チャートエリアの作成
+            chart1.ChartAreas.Add("ChartArea1");
+            //グラフタイトルの作成
+            chart1.Titles.Add("株価");
+            //グラフの種類を指定
+            chart1.Series.Add("open");
+            //グラフの種類を折れ線グラフにする
+            chart1.Series["open"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            //データの取得
             Show_stock show_Stock = new Show_stock();
-            string[,] csv_data = show_Stock.Read_csv("7177");
+            DateTime[] date= show_Stock.Get_date("7177");
+            int[] open=show_Stock.Get_open("7177");
+            for (int i = 0;i<date.Length;i++)
+            {
+                //グラフに表示するデータを追加
+                chart1.Series["open"].Points.AddXY(date[i], open[i]);
+            }
+            //windowsフォームチャートを表示
+
             //データを追加
 
         }
