@@ -9,3 +9,4 @@ D:\Visual Document\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.csproj.Ge
 D:\Visual Document\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.csproj.CoreCompileInputs.cache
 D:\Visual Document\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.exe
 D:\Visual Document\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.pdb
+D:\Visual Document\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.AddGraph_form.resources

@@ -81,5 +81,12 @@ namespace Stock_Checker
 
             }
         }
+
+        private void 追加ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //新しいフォームを開く
+            AddGraph_form f = new AddGraph_form();
+            f.Show();
+        }
     }
 }
