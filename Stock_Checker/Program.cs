@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Stock_Checker
 {
@@ -11,7 +12,7 @@ namespace Stock_Checker
         /// <summary>
         /// アプリケーションのメイン エントリ ポイントです。
         /// </summary>
-        /// 
+        ///
         [STAThread]
         static void Main()
         {
