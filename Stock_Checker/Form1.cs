@@ -24,7 +24,7 @@ namespace Stock_Checker
             ShowGraph();
             AllocConsole(); //デバック用
         }
-
+        //chartを作成
         private　void ShowGraph()
         {
             //チャート の表示
