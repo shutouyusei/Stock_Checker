@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,6 +14,7 @@ namespace Stock_Checker
     public partial class AddGraph_form : Form
     {
         int x=100;
+        string code;
        public AddGraph_form()
         {
             InitializeComponent();
@@ -34,7 +36,7 @@ namespace Stock_Checker
             chart1.Series["open"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             //データの取得
             Show_stock show_Stock = new Show_stock();
-            DateTime[] date = show_Stock.Get_date("7177");
+            DateTime[] date = show_Stock.Get_date(code);
 
             for (int i = 0; i < x * date.Length / 100; i++)
             {
@@ -54,23 +56,23 @@ namespace Stock_Checker
             switch (Y_Combo1.SelectedItem)
             {
                 case "Open":
-                    int[] open = show_Stock.Get_open("7177");
+                    int[] open = show_Stock.Get_open(code);
                     ShowGraph(open);
                     break;
                 case "High":
-                    int[] high = show_Stock.Get_High("7177");
+                    int[] high = show_Stock.Get_High(code);
                     ShowGraph( high);
                     break;
                 case "Low":
-                    int[] low = show_Stock.Get_Low("7177");
+                    int[] low = show_Stock.Get_Low(code);
                     ShowGraph( low);
                     break;
                 case "Close":
-                    int[] close = show_Stock.Get_Close("7177");
+                    int[] close = show_Stock.Get_Close(code);
                     ShowGraph( close);
                     break;
                 case "Volume":
-                    int[] volume = show_Stock.Get_Volume("7177");
+                    int[] volume = show_Stock.Get_Volume(code);
                     ShowGraph( volume);
                     break;
                 default:
@@ -94,6 +96,11 @@ namespace Stock_Checker
 
             x =100-trackBar1.Value;
             call_show();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            code = comboBox1.SelectedItem.ToString();
         }
     }
 }
