@@ -41,7 +41,7 @@ namespace Stock_Checker
             //チャートエリアの作成
             chart1.ChartAreas.Add("ChartArea1");
             //グラフタイトルの作成
-            chart1.Titles.Add("株価");
+            chart1.Titles.Add(textBox1.Text);
             //グラフの種類を指定
 
             chart1.Series.Add(series);
@@ -123,7 +123,12 @@ namespace Stock_Checker
         private void button1_Click(object sender, EventArgs e)
         {
             //Json形式でchart1の情報を出力
+            //code, text,Y,series
+        }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            call_show();
         }
     }
 }
