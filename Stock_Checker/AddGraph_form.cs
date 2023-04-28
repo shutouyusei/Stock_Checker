@@ -18,8 +18,21 @@ namespace Stock_Checker
        public AddGraph_form()
         {
             InitializeComponent();
+            //Cssを読み取ってobj追加
+            //カレントディレクトリ
+            string Csv_file_dir = System.IO.Directory.GetCurrentDirectory() + "/csv_stock_data";
+            //ディレクトリ内のファイルの名前をすべて取得
+            string[] files = System.IO.Directory.GetFiles(Csv_file_dir);
+            Console.WriteLine(files[0]);
+            for (int i = 0; i < files.Length; i++)
+            {
+                string[] file_name = files[i].Split('\\');
+                string[] file_name2 = file_name[file_name.Length - 1].Split('.');
+                string file_name3 = file_name2[0].Substring(13, 4);
+                this.comboBox1.Items.Add((object)file_name3);
+            }
         }
-        private void ShowGraph( int[] Y)
+        private void ShowGraph( string[] Y)
         {
             //チャート の表示
             chart1.Series.Clear();
@@ -52,33 +65,34 @@ namespace Stock_Checker
         void call_show()
         {
             Show_stock show_Stock = new Show_stock();
-
-            switch (Y_Combo1.SelectedItem)
+            if (comboBox1.SelectedItem != null)
             {
-                case "Open":
-                    int[] open = show_Stock.Get_open(code);
-                    ShowGraph(open);
-                    break;
-                case "High":
-                    int[] high = show_Stock.Get_High(code);
-                    ShowGraph( high);
-                    break;
-                case "Low":
-                    int[] low = show_Stock.Get_Low(code);
-                    ShowGraph( low);
-                    break;
-                case "Close":
-                    int[] close = show_Stock.Get_Close(code);
-                    ShowGraph( close);
-                    break;
-                case "Volume":
-                    int[] volume = show_Stock.Get_Volume(code);
-                    ShowGraph( volume);
-                    break;
-                default:
-                    break;
+                switch (Y_Combo1.SelectedItem)
+                {
+                    case "Open":
+                        string[] open = show_Stock.Get_open(code);
+                        ShowGraph(open);
+                        break;
+                    case "High":
+                        string[] high = show_Stock.Get_High(code);
+                        ShowGraph(high);
+                        break;
+                    case "Low":
+                        string[] low = show_Stock.Get_Low(code);
+                        ShowGraph(low);
+                        break;
+                    case "Close":
+                        string[] close = show_Stock.Get_Close(code);
+                        ShowGraph(close);
+                        break;
+                    case "Volume":
+                        string[] volume = show_Stock.Get_Volume(code);
+                        ShowGraph(volume);
+                        break;
+                    default:
+                        break;
+                }
             }
-
         }
         private void Y_Combo_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -101,6 +115,8 @@ namespace Stock_Checker
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             code = comboBox1.SelectedItem.ToString();
+            //Console.WriteLine(code);
+            call_show();
         }
     }
 }

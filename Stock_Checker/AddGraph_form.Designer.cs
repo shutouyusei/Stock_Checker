@@ -1,4 +1,6 @@
-﻿namespace Stock_Checker
+﻿using System;
+
+namespace Stock_Checker
 {
     partial class AddGraph_form
     {
@@ -114,8 +116,6 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            //Cssを読み取ってobj追加
-
             this.comboBox1.Items.AddRange(new object[] {
             "test"});
             this.comboBox1.Location = new System.Drawing.Point(351, 234);

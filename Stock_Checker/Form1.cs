@@ -42,7 +42,7 @@ namespace Stock_Checker
             //データの取得
             Show_stock show_Stock = new Show_stock();
             DateTime[] date= show_Stock.Get_date("7177");
-            int[] open=show_Stock.Get_open("7177");
+            string[] open=show_Stock.Get_open("7177");
             for (int i = 0;i<date.Length;i++)
             {
                 //グラフに表示するデータを追加
