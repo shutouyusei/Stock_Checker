@@ -12,11 +12,11 @@ namespace Stock_Checker
 {
     public partial class AddGraph_form : Form
     {
-        public AddGraph_form()
+        int x=100;
+       public AddGraph_form()
         {
             InitializeComponent();
         }
-
         private void ShowGraph( int[] Y)
         {
             //チャート の表示
@@ -29,16 +29,17 @@ namespace Stock_Checker
             chart1.Titles.Add("株価");
             //グラフの種類を指定
             chart1.Series.Add("open");
+            chart1.Series["open"].BorderWidth = 2-x/100;
             //グラフの種類を折れ線グラフにする
             chart1.Series["open"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             //データの取得
             Show_stock show_Stock = new Show_stock();
-            DateTime[] X = show_Stock.Get_date("7177");
+            DateTime[] date = show_Stock.Get_date("7177");
 
-            for (int i = 0; i < X.Length; i++)
+            for (int i = 0; i < x * date.Length / 100; i++)
             {
                 //グラフに表示するデータを追加
-                chart1.Series["open"].Points.AddXY(X[i], Y[i]);
+                chart1.Series["open"].Points.AddXY(date[i], Y[i]);
             }
             //windowsフォームチャートを表示
 
@@ -49,6 +50,7 @@ namespace Stock_Checker
         void call_show()
         {
             Show_stock show_Stock = new Show_stock();
+
             switch (Y_Combo1.SelectedItem)
             {
                 case "Open":
@@ -57,19 +59,19 @@ namespace Stock_Checker
                     break;
                 case "High":
                     int[] high = show_Stock.Get_High("7177");
-                    ShowGraph(high);
+                    ShowGraph( high);
                     break;
                 case "Low":
                     int[] low = show_Stock.Get_Low("7177");
-                    ShowGraph(low);
+                    ShowGraph( low);
                     break;
                 case "Close":
                     int[] close = show_Stock.Get_Close("7177");
-                    ShowGraph(close);
+                    ShowGraph( close);
                     break;
                 case "Volume":
                     int[] volume = show_Stock.Get_Volume("7177");
-                    ShowGraph(volume);
+                    ShowGraph( volume);
                     break;
                 default:
                     break;
@@ -82,6 +84,16 @@ namespace Stock_Checker
             {
                 call_show();
             }
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            //System.Console.WriteLine(sender.ToString()+e);
+            System.Console.WriteLine(trackBar1.Value.ToString());
+            //System.Console.WriteLine(date[0]); 最新のデータ
+
+            x =100-trackBar1.Value;
+            call_show();
         }
     }
 }
