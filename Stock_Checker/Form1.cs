@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Text.Json;
 
 
 namespace Stock_Checker
@@ -21,36 +22,21 @@ namespace Stock_Checker
         {
             InitializeComponent();
             // チャートの表示を初期化
-            ShowGraph();
             AllocConsole(); //デバック用
         }
         //chartを作成
         private　void ShowGraph()
         {
-            //チャート の表示
-            chart1.Series.Clear();
-            chart1.Titles.Clear();
-            chart1.ChartAreas.Clear();
-            //チャートエリアの作成
-            chart1.ChartAreas.Add("ChartArea1");
-            //グラフタイトルの作成
-            chart1.Titles.Add("株価");
-            //グラフの種類を指定
-            chart1.Series.Add("open");
-            //グラフの種類を折れ線グラフにする
-            chart1.Series["open"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            //データの取得
-            Show_stock show_Stock = new Show_stock();
-            DateTime[] date= show_Stock.Get_date("7177");
-            string[] open=show_Stock.Get_open("7177");
-            for (int i = 0;i<date.Length;i++)
+            //jsonファイルを読み取る
+            string json_file = System.IO.File.ReadAllText(System.IO.Directory.GetCurrentDirectory()+"/Graph.json");
+            //Console.WriteLine(json_file);
+            //jsonファイルをデシリアライズ
+            var graphs = JsonSerializer.Deserialize<Dictionary<string ,string>>(json_file);
+            foreach (var item in graphs)
             {
-                //グラフに表示するデータを追加
-                chart1.Series["open"].Points.AddXY(date[i], open[i]);
+                Console.WriteLine("{0}", item.Key);
+                Console.WriteLine("{0}", item.Value);
             }
-            //windowsフォームチャートを表示
-
-            //データを追加
 
         }
         private void button1_Click(object sender, EventArgs e)
@@ -80,6 +66,7 @@ namespace Stock_Checker
                 }
 
             }
+            ShowGraph();
         }
 
         private void 追加ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -87,6 +74,11 @@ namespace Stock_Checker
             //新しいフォームを開く
             AddGraph_form f = new AddGraph_form();
             f.Show();
+        }
+
+        private void chart1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
