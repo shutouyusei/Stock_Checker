@@ -4,10 +4,12 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.Json;
 
 namespace Stock_Checker
 {
@@ -124,6 +126,19 @@ namespace Stock_Checker
         {
             //Json形式でchart1の情報を出力
             //code, text,Y,series
+            //Dictionaryを作成
+            Dictionary<string, string> dict = new Dictionary<string, string>()
+            {
+                {"code",code },
+                {"text",textBox1.Text },
+                {"Y",Y_Combo1.SelectedItem.ToString() },
+            };
+
+            //Jsonに変換
+            string json = JsonSerializer.Serialize(dict);
+            //Console.WriteLine(json);
+
+
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
