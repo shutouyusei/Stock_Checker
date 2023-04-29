@@ -31,7 +31,7 @@ namespace Stock_Checker
             string json_file = System.IO.File.ReadAllText(System.IO.Directory.GetCurrentDirectory()+"/Graph.json");
             //Console.WriteLine(json_file);
             //jsonファイルをデシリアライズ
-            var graphs = JsonSerializer.Deserialize<Dictionary<string ,string>>(json_file);
+            var graphs = JsonSerializer.Deserialize<Dictionary<string, string>>(json_file);
             foreach (var item in graphs)
             {
                 Console.WriteLine("{0}", item.Key);

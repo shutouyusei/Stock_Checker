@@ -127,22 +127,19 @@ namespace Stock_Checker
             //Json形式でchart1の情報を出力
             //code, text,Y,series
             //Dictionaryを作成
-            Dictionary<string, string> dict = new Dictionary<string, string>()
-            {
-                {"code",code },
-                {"text",textBox1.Text },
-                {"Y",Y_Combo1.SelectedItem.ToString() },
-            };
-
-            //Jsonに変換
-            string json = JsonSerializer.Serialize(dict);
-            //Console.WriteLine(json);
-            //ファイルに書き込み
-            //カレントディレクトリ
-            string Json_file_dir = System.IO.Directory.GetCurrentDirectory() + "/Graph.json";
-            System.IO.File.WriteAllText(Json_file_dir, json);
-
-
+            //jsonファイルを読み取る
+            string json_file = System.IO.File.ReadAllText(System.IO.Directory.GetCurrentDirectory() + "/Graph.json");
+            //Console.WriteLine(json_file);
+            //jsonファイルをデシリアライズ
+            var graphs = JsonSerializer.Deserialize<Dictionary<string, string>>(json_file);
+            string data=code.ToString()+","+textBox1.Text+","+Y_Combo1.SelectedItem.ToString();
+            int num= graphs.Count();
+                //追加
+                graphs.Add("graph" + num.ToString(), data);
+                string json = JsonSerializer.Serialize(graphs);
+                string Json_file_dir = System.IO.Directory.GetCurrentDirectory() + "/Graph.json";
+                //jsonファイルに書き込み
+                System.IO.File.WriteAllText(Json_file_dir, json);
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
