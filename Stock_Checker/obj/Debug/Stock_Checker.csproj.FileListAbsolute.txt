@@ -9,7 +9,6 @@ D:\Visual Document\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.csproj.Ge
 D:\Visual Document\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.csproj.CoreCompileInputs.cache
 D:\Visual Document\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.exe
 D:\Visual Document\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.pdb
-D:\Visual Document\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.AddGraph_form.resources
 D:\Visual Document\Stock_Checker\Stock_Checker\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
 D:\Visual Document\Stock_Checker\Stock_Checker\bin\Debug\System.Buffers.dll
 D:\Visual Document\Stock_Checker\Stock_Checker\bin\Debug\System.Memory.dll
@@ -29,3 +28,4 @@ D:\Visual Document\Stock_Checker\Stock_Checker\bin\Debug\System.Text.Json.xml
 D:\Visual Document\Stock_Checker\Stock_Checker\bin\Debug\System.Threading.Tasks.Extensions.xml
 D:\Visual Document\Stock_Checker\Stock_Checker\bin\Debug\System.ValueTuple.xml
 D:\Visual Document\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.csproj.CopyComplete
+D:\Visual Document\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.Graph.resources

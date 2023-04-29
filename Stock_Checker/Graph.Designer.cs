@@ -2,7 +2,7 @@
 
 namespace Stock_Checker
 {
-    partial class AddGraph_form
+    partial class Graph
     {
         /// <summary>
         /// Required designer variable.

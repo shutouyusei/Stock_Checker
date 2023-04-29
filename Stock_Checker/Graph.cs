@@ -13,11 +13,11 @@ using System.Text.Json;
 
 namespace Stock_Checker
 {
-    public partial class AddGraph_form : Form
+    public partial class Graph : Form
     {
         int x=100;
         string code;
-       public AddGraph_form()
+       public Graph()
         {
             InitializeComponent();
             //Cssを読み取ってobj追加
@@ -25,7 +25,8 @@ namespace Stock_Checker
             string Csv_file_dir = System.IO.Directory.GetCurrentDirectory() + "/csv_stock_data";
             //ディレクトリ内のファイルの名前をすべて取得
             string[] files = System.IO.Directory.GetFiles(Csv_file_dir);
-            Console.WriteLine(files[0]);
+            //Console.WriteLine(files[0]);
+            //ファイル名からコードを取得
             for (int i = 0; i < files.Length; i++)
             {
                 string[] file_name = files[i].Split('\\');
@@ -132,10 +133,10 @@ namespace Stock_Checker
             //Console.WriteLine(json_file);
             //jsonファイルをデシリアライズ
             var graphs = JsonSerializer.Deserialize<Dictionary<string, string>>(json_file);
-            string data=code.ToString()+","+textBox1.Text+","+Y_Combo1.SelectedItem.ToString();
+            string data= Y_Combo1.SelectedItem.ToString()+","+code.ToString()+","+textBox1.Text;
             int num= graphs.Count();
                 //追加
-                graphs.Add("graph" + num.ToString(), data);
+                graphs.Add( num.ToString(), data);
                 string json = JsonSerializer.Serialize(graphs);
                 string Json_file_dir = System.IO.Directory.GetCurrentDirectory() + "/Graph.json";
                 //jsonファイルに書き込み

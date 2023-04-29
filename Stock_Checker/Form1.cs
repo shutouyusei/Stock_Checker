@@ -25,6 +25,10 @@ namespace Stock_Checker
             AllocConsole(); //デバック用
         }
         //chartを作成
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            //Console.WriteLine(DateTime.Now + " Form1_Load");
+        }
         private　void ShowGraph()
         {
             //jsonファイルを読み取る
@@ -36,6 +40,10 @@ namespace Stock_Checker
             {
                 Console.WriteLine("{0}", item.Key);
                 Console.WriteLine("{0}", item.Value);
+                //item.Valueを","で分割"
+                string[] values = item.Value.Split(',');
+                //Console.WriteLine(values[0]);
+                call_show(values[0], values[1], values[2]);
             }
 
         }
@@ -72,7 +80,7 @@ namespace Stock_Checker
         private void 追加ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //新しいフォームを開く
-            AddGraph_form f = new AddGraph_form();
+            Graph f = new Graph();
             f.Show();
         }
 
