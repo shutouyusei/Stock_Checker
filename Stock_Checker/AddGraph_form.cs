@@ -137,6 +137,10 @@ namespace Stock_Checker
             //Jsonに変換
             string json = JsonSerializer.Serialize(dict);
             //Console.WriteLine(json);
+            //ファイルに書き込み
+            //カレントディレクトリ
+            string Json_file_dir = System.IO.Directory.GetCurrentDirectory() + "/Graph.json";
+            System.IO.File.WriteAllText(Json_file_dir, json);
 
 
         }
