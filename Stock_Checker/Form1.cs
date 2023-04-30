@@ -103,7 +103,8 @@ namespace Stock_Checker
             _isDraging = true;
             _diffPoint = e.Location;
             //Console.WriteLine(e.Location.ToString());
-            Console.WriteLine(sender);
+            //どのコントロールをクリックしたか取得
+            //Console.WriteLine((System.Windows.Forms.DataVisualization.Charting.Chart)sender);
         }
 
         private void chart2_MouseMove(object sender, MouseEventArgs e)
@@ -112,13 +113,12 @@ namespace Stock_Checker
             {
                 return;
             }
-            int x=this.chart2[0].Location.X+e.X-_diffPoint.Value.X;
-            int y=this.chart2[0].Location.Y+e.Y-_diffPoint.Value.Y;
+            System.Windows.Forms.DataVisualization.Charting.Chart chart = (System.Windows.Forms.DataVisualization.Charting.Chart)sender;
+            int x= chart.Location.X+e.X-_diffPoint.Value.X;
+            int y=chart.Location.Y+e.Y-_diffPoint.Value.Y;
             if (x <= 0) x = 0;
             if (y <= 0) y = 0;
-            this.chart2[0].Location= new Point(x, y);
-            Console.WriteLine(e.Location.ToString());
-
+            chart.Location= new Point(x, y);
         }
 
         private void chart2_MouseUp(object sender, MouseEventArgs e)
