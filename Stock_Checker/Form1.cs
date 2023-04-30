@@ -23,6 +23,7 @@ namespace Stock_Checker
             InitializeComponent();
             // チャートの表示を初期化
             AllocConsole(); //デバック用
+            ShowGraph();
         }
         //chartを作成
         private void Form1_Load(object sender, EventArgs e)
@@ -74,7 +75,6 @@ namespace Stock_Checker
                 }
 
             }
-            ShowGraph();
         }
 
         private void 追加ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -87,6 +87,43 @@ namespace Stock_Checker
         private void chart1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        //チャートドラッグの処理
+
+        bool _isDraging = false;
+        Point? _diffPoint = null;
+        private void chart2_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Left)
+            {
+                return;
+            }
+            Cursor.Current = Cursors.Hand;
+            _isDraging = true;
+            _diffPoint = e.Location;
+            //Console.WriteLine(e.Location.ToString());
+            Console.WriteLine(sender);
+        }
+
+        private void chart2_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (!_isDraging)
+            {
+                return;
+            }
+            int x=this.chart2[0].Location.X+e.X-_diffPoint.Value.X;
+            int y=this.chart2[0].Location.Y+e.Y-_diffPoint.Value.Y;
+            if (x <= 0) x = 0;
+            if (y <= 0) y = 0;
+            this.chart2[0].Location= new Point(x, y);
+            Console.WriteLine(e.Location.ToString());
+
+        }
+
+        private void chart2_MouseUp(object sender, MouseEventArgs e)
+        {
+            _isDraging = false;
         }
     }
 }

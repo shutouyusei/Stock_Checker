@@ -1,5 +1,10 @@
-﻿using System;
+﻿using Stock_Checker;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Windows.Forms.DataVisualization.Charting;
+using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 namespace Stock_Checker
 {
@@ -30,55 +35,60 @@ namespace Stock_Checker
         /// コード エディターで変更しないでください。
         /// </summary>
         int x = 100;
+        //何回呼ばれたか
+        int howmany = 0;
         void ShowGraph(string[] Y, string series, string code, string text)
         {
             //チャートを追加
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chart2.Add(new System.Windows.Forms.DataVisualization.Charting.Chart());
+            //this.chart2[0] = new System.Windows.Forms.DataVisualization.Charting.Chart();
             chartArea1.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea1);
+            this.chart2[howmany].ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
-            this.chart2.Legends.Add(legend1);
-            this.chart2.Location = new System.Drawing.Point(100, 149);
-            this.chart2.Name = "chart1";
+            this.chart2[howmany].Legends.Add(legend1);
+            this.chart2[howmany].Location = new System.Drawing.Point(x, x);
+            this.chart2[howmany].Name = "chart1";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";
-            this.chart2.Series.Add(series1);
-            this.chart2.Size = new System.Drawing.Size(300, 300);
-            this.chart2.TabIndex = 4;
-            this.chart2.Text = "chart1";
+            this.chart2[howmany].Series.Add(series1);
+            this.chart2[howmany].Size = new System.Drawing.Size(300, 300);
+            this.chart2[howmany].TabIndex = 4;
+            this.chart2[howmany].Text = "chart1";
+            this.chart2[howmany].MouseDown += new System.Windows.Forms.MouseEventHandler(this.chart2_MouseDown);
+            this.chart2[howmany].MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart2_MouseMove);
+            this.chart2[howmany].MouseUp += new System.Windows.Forms.MouseEventHandler(this.chart2_MouseUp);
             //チャート の表示
-            chart2.Series.Clear();
-            chart2.Titles.Clear();
-            chart2.ChartAreas.Clear();
+            chart2[howmany].Series.Clear();
+            chart2[howmany].Titles.Clear();
+            chart2[howmany].ChartAreas.Clear();
             //チャートエリアの作成
-            chart2.ChartAreas.Add("ChartArea1");
+            chart2[howmany].ChartAreas.Add("ChartArea1");
             //グラフタイトルの作成
-            chart2.Titles.Add(text);
-            //グラフの種類を指定
-
-            chart2.Series.Add(series);
-            chart2.Series[series].BorderWidth = 2 - x / 100;
+            chart2[howmany].Titles.Add(text);
+            //グラフの種類を指定    
+            chart2[howmany].Series.Add(series);
+            chart2[howmany].Series[series].BorderWidth = 2 - x / 100;
             //グラフの種類を折れ線グラフにする
-            chart2.Series[series].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            chart2[howmany].Series[series].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             //データの取得
             Show_stock show_Stock = new Show_stock();
             DateTime[] date = show_Stock.Get_date(code);
-
+          
             for (int i = 0; i < x * date.Length / 100; i++)
             {
                 //グラフに表示するデータを追加
-                chart2.Series[series].Points.AddXY(date[i], Y[i]);
+                chart2[howmany].Series[series].Points.AddXY(date[i], Y[i]);
             }
             //windowsフォームチャートを表示
-            this.Controls.Add(this.chart2);
+            this.Controls.Add(this.chart2[howmany]);
             //Console.WriteLine(this.Controls.Count);
             Form1_Load(this, EventArgs.Empty);
             Console.WriteLine("success");
-
+            howmany++;
         }
 
         //(Y軸の種類、銘柄コード、チャートのタイトル)
@@ -111,6 +121,8 @@ namespace Stock_Checker
                     break;
             }
         }
+        
+        
         private void InitializeComponent()
         {
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
@@ -174,17 +186,18 @@ namespace Stock_Checker
             // 
             // chart1
             // 
+            this.chart1.Anchor = System.Windows.Forms.AnchorStyles.None;
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(554, 227);
+            this.chart1.Location = new System.Drawing.Point(515, 56);
             this.chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(335, 247);
+            this.chart1.Size = new System.Drawing.Size(362, 184);
             this.chart1.TabIndex = 4;
             this.chart1.Text = "chart1";
             // 
@@ -216,7 +229,6 @@ namespace Stock_Checker
         private System.Windows.Forms.ToolStripMenuItem 編集ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 追加ToolStripMenuItem;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
+        private List<Chart> chart2=new List<Chart>();
     }
 }
-
