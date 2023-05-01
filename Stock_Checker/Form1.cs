@@ -171,9 +171,10 @@ namespace Stock_Checker
         {
             Console.WriteLine("削除");
             //チャートを削除
-            Console.WriteLine(Chart.Text);
+            Console.WriteLine(chart2.Remove(Chart));
+            chart2.Remove(Chart);
             Chart.Dispose();
-
+            howmany--;
         }
     }
 }
