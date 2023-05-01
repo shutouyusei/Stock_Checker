@@ -61,6 +61,7 @@ namespace Stock_Checker
             this.chart2[howmany].MouseDown += new System.Windows.Forms.MouseEventHandler(this.chart2_MouseDown);
             this.chart2[howmany].MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart2_MouseMove);
             this.chart2[howmany].MouseUp += new System.Windows.Forms.MouseEventHandler(this.chart2_MouseUp);
+            this.chart2[howmany].MouseHover += new System.EventHandler(this.chart2_MouseHover);
             //チャート の表示
             chart2[howmany].Series.Clear();
             chart2[howmany].Titles.Clear();

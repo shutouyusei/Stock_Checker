@@ -96,31 +96,77 @@ namespace Stock_Checker
         bool _isDraging = false;
         Point? _diffPoint = null;
         Chart Chart;
+        bool is_hover = false;
         private void chart2_MouseDown(object sender, MouseEventArgs e)
         {
+            System.Windows.Forms.DataVisualization.Charting.Chart chart = (System.Windows.Forms.DataVisualization.Charting.Chart)sender;
             if (e.Button == MouseButtons.Right)
             {
-                System.Windows.Forms.DataVisualization.Charting.Chart chart = (System.Windows.Forms.DataVisualization.Charting.Chart)sender;
                 //formの左端の座標
                 contextMenuStrip1.Show(chart.Location.X+e.Location.X+30 + this.Location.X, chart.Location.Y + e.Location.Y + this.Location.Y);
                 Chart = chart;
                 return;
             }
+            //サイズ変更
 
+
+
+            System.Windows.Forms.Cursor.Current = Cursors.SizeAll;
             _isDraging = true;
             _diffPoint = e.Location;
             //Console.WriteLine(e.Location.ToString());
             //どのコントロールをクリックしたか取得
             //Console.WriteLine((System.Windows.Forms.DataVisualization.Charting.Chart)sender);
+            //Console.WriteLine(e.Location.ToString());
+            //Console.WriteLine(chart.Size.Width);
         }
 
         private void chart2_MouseMove(object sender, MouseEventArgs e)
         {
+            System.Windows.Forms.DataVisualization.Charting.Chart chart = (System.Windows.Forms.DataVisualization.Charting.Chart)sender;
             if (!_isDraging)
             {
+                if (is_hover)
+                {
+                    if (e.Location.X <= 5)
+                    {
+                        //カーソルをサイズ変更に変更
+                        System.Windows.Forms.Cursor.Current = Cursors.SizeWE;
+                    }
+                    else if (e.Location.X >= chart.Size.Width - 7)
+                    {
+                       //カーソルをサイズ変更に変更
+                         System.Windows.Forms.Cursor.Current = Cursors.SizeWE;
+                    }
+                    else if (e.Location.Y <= 5)
+                    {
+                        //カーソルをサイズ変更に変更
+                        System.Windows.Forms.Cursor.Current = Cursors.SizeNS;
+                    }
+                    else if (e.Location.Y >= chart.Size.Height - 6)
+                    {
+                        //カーソルをサイズ変更に変更
+                        System.Windows.Forms.Cursor.Current = Cursors.SizeNS;
+                    }
+                    if (e.Location.X <= 5&& e.Location.Y <= 5) {
+                        System.Windows.Forms.Cursor.Current = Cursors.SizeNWSE;
+                    }
+                    else if (e.Location.X <= 5&& e.Location.Y >= chart.Size.Height - 6)
+                    {
+                        System.Windows.Forms.Cursor.Current = Cursors.SizeNESW;
+                    }
+                    else if (e.Location.X >= chart.Size.Width - 7&& e.Location.Y <= 5)
+                    {
+                        System.Windows.Forms.Cursor.Current = Cursors.SizeNESW;
+                    }
+                    else if (e.Location.X >= chart.Size.Width - 7&& e.Location.Y >= chart.Size.Height - 6)
+                    {
+                        System.Windows.Forms.Cursor.Current = Cursors.SizeNWSE;
+                    }
+
+                }
                 return;
             }
-            System.Windows.Forms.DataVisualization.Charting.Chart chart = (System.Windows.Forms.DataVisualization.Charting.Chart)sender;
             int x = chart.Location.X + e.X - _diffPoint.Value.X;
             int y = chart.Location.Y + e.Y - _diffPoint.Value.Y;
             if (x <= 0) x = 0;
@@ -128,6 +174,14 @@ namespace Stock_Checker
             chart.Location = new Point(x, y);
         }
 
+        private void chart2_MouseHover(object sender, EventArgs e)
+        {
+            is_hover = true;
+        }
+        private　void chart2_MouseLeave(object sender, EventArgs e)
+        {
+            is_hover = false;
+        }
         private void chart2_MouseUp(object sender, MouseEventArgs e)
         {
             _isDraging = false;
