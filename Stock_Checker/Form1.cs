@@ -95,10 +95,15 @@ namespace Stock_Checker
 
         bool _isDraging = false;
         Point? _diffPoint = null;
+        Chart Chart;
         private void chart2_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button != MouseButtons.Left)
+            if (e.Button == MouseButtons.Right)
             {
+                System.Windows.Forms.DataVisualization.Charting.Chart chart = (System.Windows.Forms.DataVisualization.Charting.Chart)sender;
+                //formの左端の座標
+                contextMenuStrip1.Show(chart.Location.X+e.Location.X+30 + this.Location.X, chart.Location.Y + e.Location.Y + this.Location.Y);
+                Chart = chart;
                 return;
             }
 
@@ -160,6 +165,15 @@ namespace Stock_Checker
             string Json_file_dir = System.IO.Directory.GetCurrentDirectory() + "/Graph.json";
             //jsonファイルに書き込み
             System.IO.File.WriteAllText(Json_file_dir, json);
+        }
+
+        private void 削除ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("削除");
+            //チャートを削除
+            Console.WriteLine(Chart.Text);
+            Chart.Dispose();
+
         }
     }
 }
