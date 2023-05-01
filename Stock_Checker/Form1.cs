@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Text.Json;
-
+using System.Windows.Forms.DataVisualization.Charting;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Stock_Checker
 {
@@ -28,50 +29,51 @@ namespace Stock_Checker
         //chartを作成
         private void Form1_Load(object sender, EventArgs e)
         {
-            //Console.WriteLine(DateTime.Now + " Form1_Load");
+            Console.WriteLine(DateTime.Now + " Form1_Load");
         }
-        private　void ShowGraph()
+        private void ShowGraph()
         {
             //jsonファイルを読み取る
-            string json_file = System.IO.File.ReadAllText(System.IO.Directory.GetCurrentDirectory()+"/Graph.json");
+            string json_file = System.IO.File.ReadAllText(System.IO.Directory.GetCurrentDirectory() + "/Graph.json");
             //Console.WriteLine(json_file);
             //jsonファイルをデシリアライズ
             var graphs = JsonSerializer.Deserialize<Dictionary<string, string>>(json_file);
             foreach (var item in graphs)
             {
-                Console.WriteLine("{0}", item.Key);
-                Console.WriteLine("{0}", item.Value);
+                //    Console.WriteLine("{0}", item.Key);
+                //    Console.WriteLine("{0}", item.Value);
                 //item.Valueを","で分割"
                 string[] values = item.Value.Split(',');
                 //Console.WriteLine(values[0]);
-                call_show(values[0], values[1], values[2]);
+                call_show(values[0], values[1], values[2], values[3], values[4]);
             }
 
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            string stock_code=Stock_code_text.Text;
+            string stock_code = Stock_code_text.Text;
             if (stock_code.Length == 4)
             {
                 int code;
-                if(int.TryParse(stock_code, out code))
+                if (int.TryParse(stock_code, out code))
                 {
 
                     //現在のディレクトリを取得
                     string currentDirectory = System.IO.Directory.GetCurrentDirectory();
                     //Console.WriteLine(currentDirectory);
 
-                    ProcessStartInfo startInfo = new ProcessStartInfo(currentDirectory+"/Stock_data/Fetch_stock_py.exe");
-                   //現在はデバックのためWindowStyleをNormalに設定->Hiddenに変える
+                    ProcessStartInfo startInfo = new ProcessStartInfo(currentDirectory + "/Stock_data/Fetch_stock_py.exe");
+                    //現在はデバックのためWindowStyleをNormalに設定->Hiddenに変える
                     startInfo.WindowStyle = ProcessWindowStyle.Normal;
                     //ユーザーからの引数を用いてexe発行
-                    startInfo.Arguments=stock_code;
-                    Process p=Process.Start(startInfo);
+                    startInfo.Arguments = stock_code;
+                    Process p = Process.Start(startInfo);
                     p.WaitForExit();
 
                     Show_stock show_Stock = new Show_stock();
                     //string[,] csv_data =show_Stock.Read_csv(stock_code);
                     //int[] open = show_Stock.Get_Volume(stock_code);
+
                 }
 
             }
@@ -99,7 +101,7 @@ namespace Stock_Checker
             {
                 return;
             }
-            Cursor.Current = Cursors.Hand;
+
             _isDraging = true;
             _diffPoint = e.Location;
             //Console.WriteLine(e.Location.ToString());
@@ -114,16 +116,50 @@ namespace Stock_Checker
                 return;
             }
             System.Windows.Forms.DataVisualization.Charting.Chart chart = (System.Windows.Forms.DataVisualization.Charting.Chart)sender;
-            int x= chart.Location.X+e.X-_diffPoint.Value.X;
-            int y=chart.Location.Y+e.Y-_diffPoint.Value.Y;
+            int x = chart.Location.X + e.X - _diffPoint.Value.X;
+            int y = chart.Location.Y + e.Y - _diffPoint.Value.Y;
             if (x <= 0) x = 0;
             if (y <= 0) y = 0;
-            chart.Location= new Point(x, y);
+            chart.Location = new Point(x, y);
         }
 
         private void chart2_MouseUp(object sender, MouseEventArgs e)
         {
             _isDraging = false;
+        }
+
+        private void 保存ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Dictionaryを作成
+           //jsonファイルを読み取る
+            string json_file = System.IO.File.ReadAllText(System.IO.Directory.GetCurrentDirectory() + "/Graph.json");
+            //Console.WriteLine(json_file);
+            //jsonファイルをデシリアライズ
+            var graphs = JsonSerializer.Deserialize<Dictionary<string, string>>(json_file);
+            //jsonクリア
+            graphs.Clear();
+            //listすべての座標を記録
+            foreach (Chart chart in chart2)
+            {
+                //chartの座標を記録
+                //chart.Location.X
+                //chart.Location.Y
+                //Json形式でchart1の情報を出力
+                //code, text,Y,series
+
+                System.Windows.Forms.DataVisualization.Charting.Series series= chart.Series[0];
+                //Console.WriteLine(series.Name);
+                //Console.WriteLine(series.Legend);
+                string data = series.Name.ToString() + "," + series.Legend.ToString() + "," + chart.Text+","+chart.Location.X+","+chart.Location.Y;
+                int num = graphs.Count();
+
+                //追加
+                graphs.Add(num.ToString(), data);
+            }
+            string json = JsonSerializer.Serialize(graphs);
+            string Json_file_dir = System.IO.Directory.GetCurrentDirectory() + "/Graph.json";
+            //jsonファイルに書き込み
+            System.IO.File.WriteAllText(Json_file_dir, json);
         }
     }
 }

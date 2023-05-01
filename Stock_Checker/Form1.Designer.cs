@@ -34,10 +34,10 @@ namespace Stock_Checker
         /// デザイナー サポートに必要なメソッドです。このメソッドの内容を
         /// コード エディターで変更しないでください。
         /// </summary>
-        int x = 100;
+        int X = 100;
         //何回呼ばれたか
         int howmany = 0;
-        void ShowGraph(string[] Y, string series, string code, string text)
+        void ShowGraph(string[] Y, string series, string code, string text,int x,int y)
         {
             //チャートを追加
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
@@ -47,17 +47,17 @@ namespace Stock_Checker
             //this.chart2[0] = new System.Windows.Forms.DataVisualization.Charting.Chart();
             chartArea1.Name = "ChartArea1";
             this.chart2[howmany].ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
+            legend1.Name = code;
             this.chart2[howmany].Legends.Add(legend1);
-            this.chart2[howmany].Location = new System.Drawing.Point(x, x);
+            this.chart2[howmany].Location = new System.Drawing.Point(x, y);
             this.chart2[howmany].Name = "chart1";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
-            series1.Name = "Series1";
+            series1.Name = series;
             this.chart2[howmany].Series.Add(series1);
             this.chart2[howmany].Size = new System.Drawing.Size(300, 300);
             this.chart2[howmany].TabIndex = 4;
-            this.chart2[howmany].Text = "chart1";
+            this.chart2[howmany].Text = text;
             this.chart2[howmany].MouseDown += new System.Windows.Forms.MouseEventHandler(this.chart2_MouseDown);
             this.chart2[howmany].MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart2_MouseMove);
             this.chart2[howmany].MouseUp += new System.Windows.Forms.MouseEventHandler(this.chart2_MouseUp);
@@ -71,14 +71,14 @@ namespace Stock_Checker
             chart2[howmany].Titles.Add(text);
             //グラフの種類を指定    
             chart2[howmany].Series.Add(series);
-            chart2[howmany].Series[series].BorderWidth = 2 - x / 100;
+            chart2[howmany].Series[series].BorderWidth = 2 - X / 100;
             //グラフの種類を折れ線グラフにする
             chart2[howmany].Series[series].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             //データの取得
             Show_stock show_Stock = new Show_stock();
             DateTime[] date = show_Stock.Get_date(code);
           
-            for (int i = 0; i < x * date.Length / 100; i++)
+            for (int i = 0; i < X * date.Length / 100; i++)
             {
                 //グラフに表示するデータを追加
                 chart2[howmany].Series[series].Points.AddXY(date[i], Y[i]);
@@ -86,36 +86,40 @@ namespace Stock_Checker
             //windowsフォームチャートを表示
             this.Controls.Add(this.chart2[howmany]);
             //Console.WriteLine(this.Controls.Count);
+            Console.WriteLine(howmany);
+            Console.WriteLine(chart2[howmany].Text);
             Form1_Load(this, EventArgs.Empty);
-            Console.WriteLine("success");
+            //Console.WriteLine("success");
             howmany++;
         }
 
         //(Y軸の種類、銘柄コード、チャートのタイトル)
-        public void call_show(string Y, string code, string text)
+        public void call_show(string Y, string code, string text,string x,string y)
         {
+            int x1 = int.Parse(x);
+            int y1 = int.Parse(y);
             Show_stock show_Stock = new Show_stock();
             switch (Y)
             {
                 case "Open":
                     string[] open = show_Stock.Get_open(code);
-                    ShowGraph(open, "Open", code, text);
+                    ShowGraph(open, "Open", code, text,x1,y1);
                     break;
                 case "High":
                     string[] high = show_Stock.Get_High(code);
-                    ShowGraph(high, "High", code, text);
+                    ShowGraph(high, "High", code, text, x1, y1);
                     break;
                 case "Low":
                     string[] low = show_Stock.Get_Low(code);
-                    ShowGraph(low, "Low", code, text);
+                    ShowGraph(low, "Low", code, text, x1, y1);
                     break;
                 case "Close":
                     string[] close = show_Stock.Get_Close(code);
-                    ShowGraph(close, "Close", code, text);
+                    ShowGraph(close, "Close", code, text, x1, y1);
                     break;
                 case "Volume":
                     string[] volume = show_Stock.Get_Volume(code);
-                    ShowGraph(volume, "Volume", code, text);
+                    ShowGraph(volume, "Volume", code, text, x1, y1);
                     break;
                 default:
                     break;
@@ -125,17 +129,13 @@ namespace Stock_Checker
         
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
             this.Stock_code_text = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.編集ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.追加ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -172,7 +172,8 @@ namespace Stock_Checker
             // 編集ToolStripMenuItem
             // 
             this.編集ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.追加ToolStripMenuItem});
+            this.追加ToolStripMenuItem,
+            this.保存ToolStripMenuItem});
             this.編集ToolStripMenuItem.Name = "編集ToolStripMenuItem";
             this.編集ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.編集ToolStripMenuItem.Text = "編集";
@@ -180,33 +181,22 @@ namespace Stock_Checker
             // 追加ToolStripMenuItem
             // 
             this.追加ToolStripMenuItem.Name = "追加ToolStripMenuItem";
-            this.追加ToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.追加ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.追加ToolStripMenuItem.Text = "追加";
             this.追加ToolStripMenuItem.Click += new System.EventHandler(this.追加ToolStripMenuItem_Click);
             // 
-            // chart1
+            // 保存ToolStripMenuItem
             // 
-            this.chart1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(515, 92);
-            this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(362, 184);
-            this.chart1.TabIndex = 4;
-            this.chart1.Text = "chart1";
+            this.保存ToolStripMenuItem.Name = "保存ToolStripMenuItem";
+            this.保存ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.保存ToolStripMenuItem.Text = "保存";
+            this.保存ToolStripMenuItem.Click += new System.EventHandler(this.保存ToolStripMenuItem_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(889, 489);
-            this.Controls.Add(this.chart1);
             this.Controls.Add(this.Stock_code_text);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.menuStrip1);
@@ -216,7 +206,6 @@ namespace Stock_Checker
             this.Text = "Form1";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -228,7 +217,7 @@ namespace Stock_Checker
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 編集ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 追加ToolStripMenuItem;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private List<Chart> chart2=new List<Chart>();
+        private System.Windows.Forms.ToolStripMenuItem 保存ToolStripMenuItem;
     }
 }

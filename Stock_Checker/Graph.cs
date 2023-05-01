@@ -66,7 +66,7 @@ namespace Stock_Checker
 
         }
 
-        void call_show()
+        void call_show1()
         {
             Show_stock show_Stock = new Show_stock();
             if (comboBox1.SelectedItem != null)
@@ -102,7 +102,7 @@ namespace Stock_Checker
         {
             if (Y_Combo1.SelectedItem != null)
             {
-                call_show();
+                call_show1();
             }
         }
 
@@ -113,39 +113,28 @@ namespace Stock_Checker
             //System.Console.WriteLine(date[0]); 最新のデータ
 
             x =100-trackBar1.Value;
-            call_show();
+            call_show1();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             code = comboBox1.SelectedItem.ToString();
             //Console.WriteLine(code);
-            call_show();
+            call_show1();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //Json形式でchart1の情報を出力
-            //code, text,Y,series
-            //Dictionaryを作成
-            //jsonファイルを読み取る
-            string json_file = System.IO.File.ReadAllText(System.IO.Directory.GetCurrentDirectory() + "/Graph.json");
-            //Console.WriteLine(json_file);
-            //jsonファイルをデシリアライズ
-            var graphs = JsonSerializer.Deserialize<Dictionary<string, string>>(json_file);
-            string data= Y_Combo1.SelectedItem.ToString()+","+code.ToString()+","+textBox1.Text;
-            int num= graphs.Count();
-                //追加
-                graphs.Add( num.ToString(), data);
-                string json = JsonSerializer.Serialize(graphs);
-                string Json_file_dir = System.IO.Directory.GetCurrentDirectory() + "/Graph.json";
-                //jsonファイルに書き込み
-                System.IO.File.WriteAllText(Json_file_dir, json);
+            Form1 form = System.Windows.Forms.Application.OpenForms["Form1"] as Form1;
+            //Console.WriteLine(Y_Combo1.SelectedItem.ToString()+","+code.ToString()+","+textBox1.Text);
+            form.call_show(Y_Combo1.SelectedItem.ToString(),code.ToString(), textBox1.Text, "100", "100");
+            //フォームを閉じる
+            this.Close();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            call_show();
+            call_show1();
         }
     }
 }
