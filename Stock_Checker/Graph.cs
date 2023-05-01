@@ -127,7 +127,11 @@ namespace Stock_Checker
         {
             Form1 form = System.Windows.Forms.Application.OpenForms["Form1"] as Form1;
             //Console.WriteLine(Y_Combo1.SelectedItem.ToString()+","+code.ToString()+","+textBox1.Text);
-            form.call_show(Y_Combo1.SelectedItem.ToString(),code.ToString(), textBox1.Text, "100", "100");
+            //開いているform
+            Form1 form1 = System.Windows.Forms.Application.OpenForms["Form1"] as Form1;
+            string  x = ((form1.Width / 2)-150).ToString();
+            string  y = ((form1.Height / 2)-150).ToString();
+            form.call_show(Y_Combo1.SelectedItem.ToString(),code.ToString(), textBox1.Text, x,y);
             //フォームを閉じる
             this.Close();
         }
