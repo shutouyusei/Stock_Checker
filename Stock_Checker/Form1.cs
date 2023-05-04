@@ -98,6 +98,11 @@ namespace Stock_Checker
         Chart Chart;
         bool is_hover = false;
         int is_sizing = 0;
+        List<List<Chart>> change_chart = new List<List<Chart>>();
+        void change_list()
+        {
+            change_chart.Add(chart2);
+        }
         private void chart2_MouseDown(object sender, MouseEventArgs e)
         {
             System.Windows.Forms.DataVisualization.Charting.Chart chart = (System.Windows.Forms.DataVisualization.Charting.Chart)sender;
@@ -352,6 +357,8 @@ namespace Stock_Checker
         {
             _isDraging = false;
             is_sizing = 0;
+            //元に戻すのための状態遷移の配列管理
+            change_list();     
         }
         private void 保存ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -407,6 +414,22 @@ namespace Stock_Checker
                     削除ToolStripMenuItem_Click(Chart, null);
                 }
             }
+        }
+
+        private void 元に戻すToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void 複製ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //コピー
+        }
+
+        private void 切り取りToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //切り取り
+
         }
     }
 }
