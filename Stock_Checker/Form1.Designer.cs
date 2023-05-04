@@ -61,7 +61,7 @@ namespace Stock_Checker
             this.chart2[howmany].MouseDown += new System.Windows.Forms.MouseEventHandler(this.chart2_MouseDown);
             this.chart2[howmany].MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart2_MouseMove);
             this.chart2[howmany].MouseUp += new System.Windows.Forms.MouseEventHandler(this.chart2_MouseUp);
-            this.chart2[howmany].MouseHover += new System.EventHandler(this.chart2_MouseHover);
+            this.chart2[howmany].MouseHover += new System.EventHandler(this.chart2_MouseHover);     
             //チャート の表示
             chart2[howmany].Series.Clear();
             chart2[howmany].Titles.Clear();
@@ -223,12 +223,14 @@ namespace Stock_Checker
             this.Controls.Add(this.Stock_code_text);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.menuStrip1);
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(500, 300);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);

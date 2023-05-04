@@ -101,15 +101,15 @@ namespace Stock_Checker
         private void chart2_MouseDown(object sender, MouseEventArgs e)
         {
             System.Windows.Forms.DataVisualization.Charting.Chart chart = (System.Windows.Forms.DataVisualization.Charting.Chart)sender;
+            Chart = chart;
             if (e.Button == MouseButtons.Right)
             {
                 //formの左端の座標
                 contextMenuStrip1.Show(chart.Location.X+e.Location.X+30 + this.Location.X, chart.Location.Y + e.Location.Y + this.Location.Y);
-                Chart = chart;
+              
                 return;
             }
             //サイズ変更
-
 
 
             System.Windows.Forms.Cursor.Current = Cursors.SizeAll;
@@ -353,7 +353,6 @@ namespace Stock_Checker
             _isDraging = false;
             is_sizing = 0;
         }
-
         private void 保存ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //Dictionaryを作成
@@ -396,6 +395,18 @@ namespace Stock_Checker
             chart2.Remove(Chart);
             Chart.Dispose();
             howmany--;
+            Chart = null;
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Chart!=null)
+            {
+                if (e.KeyCode == Keys.Delete)
+                {
+                    削除ToolStripMenuItem_Click(Chart, null);
+                }
+            }
         }
     }
 }
