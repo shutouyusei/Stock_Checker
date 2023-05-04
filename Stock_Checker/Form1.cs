@@ -98,7 +98,7 @@ namespace Stock_Checker
         Chart Chart;
         bool is_hover = false;
         int is_sizing = 0;
-        List<Chart>[] change_chart = new System.Collections.Generic.List<Chart>[20];
+       List<string>[] change_chart =new List<string>[20];
         int change = 0;
 
 
@@ -108,8 +108,24 @@ namespace Stock_Checker
         {
             if (change <= 19)
             {
-                change_chart[change] = chart2;
-                change++;                
+                change_chart[change] = new List<string>();
+
+                foreach (Chart chart in chart2)
+                {
+                    //chartの座標を記録
+                    //chart.Location.X
+                    //chart.Location.Y
+                    //Json形式でchart1の情報を出力
+                    //code, text,Y,series
+
+                    System.Windows.Forms.DataVisualization.Charting.Series series = chart.Series[0];
+                    //Console.WriteLine(series.Name);
+                    //Console.WriteLine(series.Legend);
+                    string data = series.Name.ToString() + "," + series.Legend.ToString() + "," + chart.Text + "," + chart.Location.X + "," + chart.Location.Y + "," + chart.Size.Width + "," + chart.Size.Height;                   
+                    change_chart[change].Add(data);
+                }
+                    change++;
+
             }
             else
             {
@@ -117,8 +133,24 @@ namespace Stock_Checker
                 {
                     change_chart[i] = change_chart[i + 1]; 
                 }
-                change_chart[19] = chart2;           
+                foreach (Chart chart in chart2)
+                {
+                    //chartの座標を記録
+                    //chart.Location.X
+                    //chart.Location.Y
+                    //Json形式でchart1の情報を出力
+                    //code, text,Y,series
+
+                    System.Windows.Forms.DataVisualization.Charting.Series series = chart.Series[0];
+                    //Console.WriteLine(series.Name);
+                    //Console.WriteLine(series.Legend);
+                    string data = series.Name.ToString() + "," + series.Legend.ToString() + "," + chart.Text + "," + chart.Location.X + "," + chart.Location.Y + "," + chart.Size.Width + "," + chart.Size.Height;
+                    change_chart[19].Add(data);
+                }
             }
+            Console.WriteLine(change_chart[0][0]);
+            if (change > 1) { Console.WriteLine(change_chart[1][0]); }
+            
         }
         private void chart2_MouseDown(object sender, MouseEventArgs e)
         {
@@ -435,7 +467,16 @@ namespace Stock_Checker
 
         private void 元に戻すToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            if (change >= 1)
+            {
+                this.Chart.Dispose();
+                foreach (string ch in change_chart[change-1])
+                {
+                    //appear(ch);
+                    Console.WriteLine(ch);
+                    change--;
+                }
+            }
         }
 
         private void 複製ToolStripMenuItem_Click(object sender, EventArgs e)
