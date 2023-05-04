@@ -29,3 +29,34 @@ D:\Visual Document\Stock_Checker\Stock_Checker\bin\Debug\System.Threading.Tasks.
 D:\Visual Document\Stock_Checker\Stock_Checker\bin\Debug\System.ValueTuple.xml
 D:\Visual Document\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.csproj.CopyComplete
 D:\Visual Document\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.Graph.resources
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\bin\Debug\Stock_Checker.exe.config
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\bin\Debug\Stock_Checker.exe
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\bin\Debug\Stock_Checker.pdb
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\bin\Debug\System.Buffers.dll
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\bin\Debug\System.Memory.dll
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\bin\Debug\System.Text.Json.dll
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\bin\Debug\System.ValueTuple.dll
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\bin\Debug\System.Buffers.xml
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\bin\Debug\System.Memory.xml
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\bin\Debug\System.Text.Json.xml
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\bin\Debug\System.ValueTuple.xml
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.csproj.AssemblyReference.cache
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.csproj.SuggestedBindingRedirects.cache
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.Graph.resources
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.Form1.resources
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.Properties.Resources.resources
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.csproj.GenerateResource.cache
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.csproj.CoreCompileInputs.cache
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.csproj.CopyComplete
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.exe
+C:\Users\Yaaaa\source\repos\Stock_Checker\Stock_Checker\obj\Debug\Stock_Checker.pdb
