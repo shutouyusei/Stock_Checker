@@ -45,7 +45,7 @@ namespace Stock_Checker
                 //item.Valueを","で分割"
                 string[] values = item.Value.Split(',');
                 //Console.WriteLine(values[0]);
-                call_show(values[0], values[1], values[2], values[3], values[4]);
+                call_show(values[0], values[1], values[2], values[3], values[4], values[5], values[6]);
             }
 
         }
@@ -376,7 +376,7 @@ namespace Stock_Checker
                 System.Windows.Forms.DataVisualization.Charting.Series series= chart.Series[0];
                 //Console.WriteLine(series.Name);
                 //Console.WriteLine(series.Legend);
-                string data = series.Name.ToString() + "," + series.Legend.ToString() + "," + chart.Text+","+chart.Location.X+","+chart.Location.Y;
+                string data = series.Name.ToString() + "," + series.Legend.ToString() + "," + chart.Text+","+chart.Location.X+","+chart.Location.Y+","+chart.Size.Width+","+chart.Size.Height;
                 int num = graphs.Count();
 
                 //追加

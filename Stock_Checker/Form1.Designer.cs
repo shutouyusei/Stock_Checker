@@ -37,7 +37,7 @@ namespace Stock_Checker
         int X = 100;
         //何回呼ばれたか
         int howmany = 0;
-        void ShowGraph(string[] Y, string series, string code, string text,int x,int y)
+        void ShowGraph(string[] Y, string series, string code, string text,int x,int y,int W,int H)
         {
             //チャートを追加
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
@@ -55,7 +55,7 @@ namespace Stock_Checker
             series1.Legend = "Legend1";
             series1.Name = series;
             this.chart2[howmany].Series.Add(series1);
-            this.chart2[howmany].Size = new System.Drawing.Size(300, 300);
+            this.chart2[howmany].Size = new System.Drawing.Size(W, H);
             this.chart2[howmany].TabIndex = 4;
             this.chart2[howmany].Text = text;
             this.chart2[howmany].MouseDown += new System.Windows.Forms.MouseEventHandler(this.chart2_MouseDown);
@@ -95,32 +95,34 @@ namespace Stock_Checker
         }
 
         //(Y軸の種類、銘柄コード、チャートのタイトル)
-        public void call_show(string Y, string code, string text,string x,string y)
+        public void call_show(string Y, string code, string text,string x,string y,string W,string H)
         {
             int x1 = int.Parse(x);
             int y1 = int.Parse(y);
+            int W1 = int.Parse(W);
+            int H1 = int.Parse(H);
             Show_stock show_Stock = new Show_stock();
             switch (Y)
             {
                 case "Open":
                     string[] open = show_Stock.Get_open(code);
-                    ShowGraph(open, "Open", code, text,x1,y1);
+                    ShowGraph(open, "Open", code, text,x1,y1,W1,H1);
                     break;
                 case "High":
                     string[] high = show_Stock.Get_High(code);
-                    ShowGraph(high, "High", code, text, x1, y1);
+                    ShowGraph(high, "High", code, text, x1, y1, W1, H1);
                     break;
                 case "Low":
                     string[] low = show_Stock.Get_Low(code);
-                    ShowGraph(low, "Low", code, text, x1, y1);
+                    ShowGraph(low, "Low", code, text, x1, y1, W1, H1);
                     break;
                 case "Close":
                     string[] close = show_Stock.Get_Close(code);
-                    ShowGraph(close, "Close", code, text, x1, y1);
+                    ShowGraph(close, "Close", code, text, x1, y1, W1, H1);
                     break;
                 case "Volume":
                     string[] volume = show_Stock.Get_Volume(code);
-                    ShowGraph(volume, "Volume", code, text, x1, y1);
+                    ShowGraph(volume, "Volume", code, text, x1, y1, W1, H1);
                     break;
                 default:
                     break;
