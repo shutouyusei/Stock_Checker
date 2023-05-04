@@ -98,10 +98,27 @@ namespace Stock_Checker
         Chart Chart;
         bool is_hover = false;
         int is_sizing = 0;
-        List<List<Chart>> change_chart = new List<List<Chart>>();
+        List<Chart>[] change_chart = new System.Collections.Generic.List<Chart>[20];
+        int change = 0;
+
+
+
+
         void change_list()
         {
-            change_chart.Add(chart2);
+            if (change <= 19)
+            {
+                change_chart[change] = chart2;
+                change++;                
+            }
+            else
+            {
+                for(int i=0; i<19; i++) 
+                {
+                    change_chart[i] = change_chart[i + 1]; 
+                }
+                change_chart[19] = chart2;           
+            }
         }
         private void chart2_MouseDown(object sender, MouseEventArgs e)
         {
@@ -418,7 +435,7 @@ namespace Stock_Checker
 
         private void 元に戻すToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void 複製ToolStripMenuItem_Click(object sender, EventArgs e)
