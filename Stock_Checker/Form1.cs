@@ -474,6 +474,7 @@ namespace Stock_Checker
             Chart.Dispose();
             howmany--;
             Chart = null;
+            change_list();
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -493,6 +494,9 @@ namespace Stock_Checker
                     {
                         case Keys.C:
                             複製ToolStripMenuItem_Click(Chart, null);
+                            break;
+                        case Keys.V:
+                            貼り付けToolStripMenuItem_Click(null, null);
                             break;
                     }
                 }
@@ -572,12 +576,12 @@ namespace Stock_Checker
         int right_click_y ;
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
+            right_click_x = e.Location.X;
+            right_click_y = e.Location.Y;
             if (e.Button == MouseButtons.Right)
             {
                 //formの左端の座標
                 contextMenuStrip2.Show(this.Location.X + e.Location.X + 30 , this.Location.Y + e.Location.Y );
-                right_click_x = e.Location.X;
-                right_click_y = e.Location.Y;
                 return;
             }
         }
@@ -589,8 +593,14 @@ namespace Stock_Checker
             //Console.WriteLine(clip);
             string[] values = clip.Split(',');
             //Console.WriteLine(values[0]);
-            call_show(values[0], values[1], values[2], right_click_x.ToString(), right_click_y.ToString(), values[5], values[6]);
+            //Console.WriteLine(right_click_x + Int32.Parse(values[5]) / 2);
+            //Console.WriteLine(right_click_y + Int32.Parse(values[6]) / 2);
+            //Console.WriteLine(right_click_x);
+            //Console.WriteLine(right_click_y);
+            call_show(values[0], values[1], values[2], (System.Windows.Forms.Cursor.Position.X - Int32.Parse(values[5]) / 2).ToString(), (System.Windows.Forms.Cursor.Position.Y - Int32.Parse(values[6]) / 2).ToString(), values[5], values[6]);
             change_list();
         }
+
+
     }
 }
