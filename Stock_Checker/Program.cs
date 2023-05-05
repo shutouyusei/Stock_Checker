@@ -16,6 +16,8 @@ namespace Stock_Checker
         [STAThread]
         static void Main()
         {
+            Get_stock get_Stock = new Get_stock();
+            get_Stock.fetch_stock();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());

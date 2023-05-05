@@ -27,7 +27,22 @@ namespace Stock_Checker
             // チャートの表示を初期化
             AllocConsole(); //デバック用
             ShowGraph();
-            for (int i = 0; i < 20; i++)
+            //csvファイルの取得
+            //Cssを読み取ってobj追加
+            //カレントディレクトリ
+            string Csv_file_dir = System.IO.Directory.GetCurrentDirectory() + "/csv_stock_data";
+            //ディレクトリ内のファイルの名前をすべて取得
+            string[] files = System.IO.Directory.GetFiles(Csv_file_dir);
+            //Console.WriteLine(files[0]);
+            //ファイル名からコードを取得
+            for (int i = 0; i < files.Length; i++)
+            {
+                string[] file_name = files[i].Split('\\');
+                string[] file_name2 = file_name[file_name.Length - 1].Split('.');
+                string file_name3 = file_name2[0].Substring(13, 4);
+                this.comboBox1.Items.Add((object)file_name3);
+            }
+                for (int i = 0; i < 20; i++)
             {
                 change_chart[i] = new List<string>();
             }
@@ -71,29 +86,30 @@ namespace Stock_Checker
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            string stock_code = Stock_code_text.Text;
+            string stock_code = comboBox1.Text;
             if (stock_code.Length == 4)
             {
-                int code;
-                if (int.TryParse(stock_code, out code))
+                try
                 {
+                    int code;
+                    if (int.TryParse(stock_code, out code))
+                    {
+                        //現在のディレクトリを取得
+                        string currentDirectory = System.IO.Directory.GetCurrentDirectory();
+                        //Console.WriteLine(currentDirectory);
 
-                    //現在のディレクトリを取得
-                    string currentDirectory = System.IO.Directory.GetCurrentDirectory();
-                    //Console.WriteLine(currentDirectory);
-
-                    ProcessStartInfo startInfo = new ProcessStartInfo(currentDirectory + "/Stock_data/Fetch_stock_py.exe");
-                    //現在はデバックのためWindowStyleをNormalに設定->Hiddenに変える
-                    startInfo.WindowStyle = ProcessWindowStyle.Normal;
-                    //ユーザーからの引数を用いてexe発行
-                    startInfo.Arguments = stock_code;
-                    Process p = Process.Start(startInfo);
-                    p.WaitForExit();
-
-                    Show_stock show_Stock = new Show_stock();
-                    //string[,] csv_data =show_Stock.Read_csv(stock_code);
-                    //int[] open = show_Stock.Get_Volume(stock_code);
-
+                        ProcessStartInfo startInfo = new ProcessStartInfo(currentDirectory + "/Stock_data/Fetch_stock_py.exe");
+                        //現在はデバックのためWindowStyleをNormalに設定->Hiddenに変える
+                        startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                        //ユーザーからの引数を用いてexe発行
+                        startInfo.Arguments = stock_code;
+                        Process p = Process.Start(startInfo);
+                        this.comboBox1.Items.Add(stock_code);
+                    }
+                }
+                catch
+                {
+                    return;
                 }
 
             }
@@ -156,7 +172,6 @@ namespace Stock_Checker
                     change_chart[i] = change_chart[i + 1];
                 }
                 change_chart[19]=new List<string>();
-                Console.WriteLine("ss");
                 foreach (Chart chart in chart2)
                 {
 
@@ -597,6 +612,7 @@ namespace Stock_Checker
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
+            button1.Focus();
             if (e.Button == MouseButtons.Right)
             {
                 //formの左端の座標
@@ -629,7 +645,5 @@ namespace Stock_Checker
             //Console.WriteLine(right_click_y);
 
         }
-
-
     }
 }
