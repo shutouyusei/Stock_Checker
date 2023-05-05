@@ -73,7 +73,7 @@ namespace Stock_Checker
             //チャートエリアの作成
             chart2[howmany].ChartAreas.Add("ChartArea1");
             //グラフタイトルの作成
-            chart2[howmany].Titles.Add(text);
+            chart2[howmany].Titles.Add(text+"_"+code);
             //グラフの種類を指定    
             chart2[howmany].Series.Add(series);
             chart2[howmany].Series[series].BorderWidth = 2 - X / 100;
@@ -151,7 +151,6 @@ namespace Stock_Checker
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.貼り付けToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
@@ -279,22 +278,11 @@ namespace Stock_Checker
             this.comboBox1.TabIndex = 4;
             this.comboBox1.Text = "銘柄コード";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(32, 498);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 12);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "label1";
-            this.label1.Visible = false;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.menuStrip1);
@@ -334,6 +322,5 @@ namespace Stock_Checker
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
         private System.Windows.Forms.ToolStripMenuItem 貼り付けToolStripMenuItem;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label label1;
     }
 }

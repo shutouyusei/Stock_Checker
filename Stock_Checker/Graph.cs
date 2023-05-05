@@ -44,7 +44,7 @@ namespace Stock_Checker
             //チャートエリアの作成
             chart1.ChartAreas.Add("ChartArea1");
             //グラフタイトルの作成
-            chart1.Titles.Add(textBox1.Text);
+            chart1.Titles.Add(textBox1.Text+"_"+code);
             //グラフの種類を指定
 
             chart1.Series.Add(series);
