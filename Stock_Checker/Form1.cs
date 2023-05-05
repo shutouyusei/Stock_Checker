@@ -516,6 +516,13 @@ namespace Stock_Checker
         private void 複製ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //コピー
+            System.Windows.Forms.DataVisualization.Charting.Series series = Chart.Series[0];
+            //Console.WriteLine(series.Name);
+            //Console.WriteLine(series.Legend);
+            string data = series.Name.ToString() + "," + series.Legend.ToString() + "," + Chart.Text + "," + Chart.Location.X + "," + Chart.Location.Y + "," + Chart.Size.Width + "," + Chart.Size.Height;
+            Console.WriteLine(data);
+            //クリップボードに追加
+            Clipboard.SetText(data);
         }
 
         private void 切り取りToolStripMenuItem_Click(object sender, EventArgs e)

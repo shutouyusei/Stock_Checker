@@ -214,6 +214,7 @@ namespace Stock_Checker
             // 元に戻すToolStripMenuItem
             // 
             this.元に戻すToolStripMenuItem.Name = "元に戻すToolStripMenuItem";
+            this.元に戻すToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
             this.元に戻すToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.元に戻すToolStripMenuItem.Text = "元に戻す";
             this.元に戻すToolStripMenuItem.Click += new System.EventHandler(this.元に戻すToolStripMenuItem_Click);
@@ -221,6 +222,7 @@ namespace Stock_Checker
             // やり直しToolStripMenuItem
             // 
             this.やり直しToolStripMenuItem.Name = "やり直しToolStripMenuItem";
+            this.やり直しToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
             this.やり直しToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.やり直しToolStripMenuItem.Text = "やり直し";
             this.やり直しToolStripMenuItem.Click += new System.EventHandler(this.やり直しToolStripMenuItem_Click);
