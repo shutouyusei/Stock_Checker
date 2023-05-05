@@ -478,11 +478,23 @@ namespace Stock_Checker
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
+            Console.WriteLine(e.KeyCode);
             if (Chart!=null)
             {
-                if (e.KeyCode == Keys.Delete)
+                switch (e.KeyCode)
                 {
-                    削除ToolStripMenuItem_Click(Chart, null);
+                    case Keys.Delete:
+                        削除ToolStripMenuItem_Click(Chart, null);
+                        break;
+                }
+                if (e.Control)
+                {
+                     switch (e.KeyCode)
+                    {
+                        case Keys.C:
+                            複製ToolStripMenuItem_Click(Chart, null);
+                            break;
+                    }
                 }
             }
         }
@@ -520,7 +532,7 @@ namespace Stock_Checker
             //Console.WriteLine(series.Name);
             //Console.WriteLine(series.Legend);
             string data = series.Name.ToString() + "," + series.Legend.ToString() + "," + Chart.Text + "," + Chart.Location.X + "," + Chart.Location.Y + "," + Chart.Size.Width + "," + Chart.Size.Height;
-            Console.WriteLine(data);
+            //Console.WriteLine(data);
             //クリップボードに追加
             Clipboard.SetText(data);
         }
