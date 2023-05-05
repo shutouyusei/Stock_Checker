@@ -127,7 +127,11 @@ namespace Stock_Checker
         {
             if (change <= 19)
             {
-                change_chart[change].Clear();
+                for (int i = change; i < 20; i++)
+                {
+                    change_chart[i].Clear();
+                }
+                changed = 0;
                 foreach (Chart chart in chart2)
                 {
                     //chartの座標を記録
@@ -482,7 +486,7 @@ namespace Stock_Checker
                 }
             }
         }
-
+        int changed= 0;
         private void 元に戻すToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (change >= 2)
@@ -505,6 +509,7 @@ namespace Stock_Checker
                     call_show(values[0], values[1], values[2], values[3], values[4], values[5], values[6]);
                 }
                 change--;
+                changed++;
             }
         }
 
@@ -517,6 +522,33 @@ namespace Stock_Checker
         {
             //切り取り
 
+        }
+
+        private void やり直しToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            if (changed>0)
+            {
+                //chartをすべて削除
+                foreach (Chart chart in chart2)
+                {
+                    chart.Dispose();
+                }
+                chart2.Clear();
+                howmany = 0;
+                foreach (string ch in change_chart[change])
+                {
+                    //appear(ch);
+                    //    Console.WriteLine("{0}", item.Key);
+                    //    Console.WriteLine("{0}", item.Value);
+                    //item.Valueを","で分割"
+                    string[] values = ch.Split(',');
+                    //Console.WriteLine(values[0]);
+                    call_show(values[0], values[1], values[2], values[3], values[4], values[5], values[6]);
+                }
+                change++;
+                changed--;
+            }
         }
     }
 }
