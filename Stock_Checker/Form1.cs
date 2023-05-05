@@ -540,7 +540,6 @@ namespace Stock_Checker
         private void 切り取りToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //切り取り
-
         }
 
         private void やり直しToolStripMenuItem_Click(object sender, EventArgs e)
@@ -568,6 +567,30 @@ namespace Stock_Checker
                 change++;
                 changed--;
             }
+        }
+        int right_click_x ;
+        int right_click_y ;
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                //formの左端の座標
+                contextMenuStrip2.Show(this.Location.X + e.Location.X + 30 , this.Location.Y + e.Location.Y );
+                right_click_x = e.Location.X;
+                right_click_y = e.Location.Y;
+                return;
+            }
+        }
+
+        private void 貼り付けToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string clip=Clipboard.GetText();
+            //Console.WriteLine("----");
+            //Console.WriteLine(clip);
+            string[] values = clip.Split(',');
+            //Console.WriteLine(values[0]);
+            call_show(values[0], values[1], values[2], right_click_x.ToString(), right_click_y.ToString(), values[5], values[6]);
+            change_list();
         }
     }
 }
