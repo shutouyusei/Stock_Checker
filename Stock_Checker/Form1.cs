@@ -467,9 +467,9 @@ namespace Stock_Checker
 
         private void 削除ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("削除");
-            //チャートを削除
-            Console.WriteLine(chart2.Remove(Chart));
+            //Console.WriteLine("削除");
+            ////チャートを削除
+            //Console.WriteLine(chart2.Remove(Chart));
             chart2.Remove(Chart);
             Chart.Dispose();
             howmany--;
@@ -495,6 +495,19 @@ namespace Stock_Checker
                         case Keys.C:
                             複製ToolStripMenuItem_Click(Chart, null);
                             break;
+
+                        case Keys.X:
+                            切り取りToolStripMenuItem_Click(null, null);
+                            break;
+                    }
+                }
+            }
+            else
+            {
+                if (e.Control)
+                {
+                    switch (e.KeyCode)
+                    {
                         case Keys.V:
                             貼り付けToolStripMenuItem_Click(null, null);
                             break;
@@ -543,7 +556,19 @@ namespace Stock_Checker
 
         private void 切り取りToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //コピー
+            System.Windows.Forms.DataVisualization.Charting.Series series = Chart.Series[0];
+            //Console.WriteLine(series.Name);
+            //Console.WriteLine(series.Legend);
+            string data = series.Name.ToString() + "," + series.Legend.ToString() + "," + Chart.Text + "," + Chart.Location.X + "," + Chart.Location.Y + "," + Chart.Size.Width + "," + Chart.Size.Height;
+            //Console.WriteLine(data);
+            //クリップボードに追加
+            Clipboard.SetText(data);
             //切り取り
+            chart2.Remove(Chart);
+            Chart.Dispose();
+            howmany--;
+            Chart = null;
         }
 
         private void やり直しToolStripMenuItem_Click(object sender, EventArgs e)

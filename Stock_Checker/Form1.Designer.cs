@@ -237,13 +237,13 @@ namespace Stock_Checker
             this.複製ToolStripMenuItem,
             this.切り取りToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(139, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(155, 70);
             // 
             // 削除ToolStripMenuItem
             // 
             this.削除ToolStripMenuItem.Name = "削除ToolStripMenuItem";
             this.削除ToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.削除ToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.削除ToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.削除ToolStripMenuItem.Text = "削除";
             this.削除ToolStripMenuItem.Click += new System.EventHandler(this.削除ToolStripMenuItem_Click);
             // 
@@ -251,14 +251,15 @@ namespace Stock_Checker
             // 
             this.複製ToolStripMenuItem.Name = "複製ToolStripMenuItem";
             this.複製ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.複製ToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.複製ToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.複製ToolStripMenuItem.Text = "複製";
             this.複製ToolStripMenuItem.Click += new System.EventHandler(this.複製ToolStripMenuItem_Click);
             // 
             // 切り取りToolStripMenuItem
             // 
             this.切り取りToolStripMenuItem.Name = "切り取りToolStripMenuItem";
-            this.切り取りToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.切り取りToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
+            this.切り取りToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.切り取りToolStripMenuItem.Text = "切り取り";
             this.切り取りToolStripMenuItem.Click += new System.EventHandler(this.切り取りToolStripMenuItem_Click);
             // 
