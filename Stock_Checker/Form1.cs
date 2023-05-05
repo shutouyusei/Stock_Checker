@@ -45,7 +45,7 @@ namespace Stock_Checker
                 //item.Valueを","で分割"
                 string[] values = item.Value.Split(',');
                 //Console.WriteLine(values[0]);
-                call_show(values[0], values[1], values[2], values[3], values[4]);
+                call_show(values[0], values[1], values[2], values[3], values[4], values[5], values[6]);
             }
 
         }
@@ -97,23 +97,77 @@ namespace Stock_Checker
         Point? _diffPoint = null;
         Chart Chart;
         bool is_hover = false;
+        int is_sizing = 0;
+        List<List<Chart>> change_chart = new List<List<Chart>>();
+        void change_list()
+        {
+            change_chart.Add(chart2);
+        }
         private void chart2_MouseDown(object sender, MouseEventArgs e)
         {
             System.Windows.Forms.DataVisualization.Charting.Chart chart = (System.Windows.Forms.DataVisualization.Charting.Chart)sender;
+            Chart = chart;
             if (e.Button == MouseButtons.Right)
             {
                 //formの左端の座標
                 contextMenuStrip1.Show(chart.Location.X+e.Location.X+30 + this.Location.X, chart.Location.Y + e.Location.Y + this.Location.Y);
-                Chart = chart;
+              
                 return;
             }
             //サイズ変更
 
 
-
             System.Windows.Forms.Cursor.Current = Cursors.SizeAll;
             _isDraging = true;
             _diffPoint = e.Location;
+            if (is_hover)
+            {
+                if (e.Location.X <= 5)
+                {
+                    //カーソルをサイズ変更に変更
+                    System.Windows.Forms.Cursor.Current = Cursors.SizeWE;
+                    is_sizing= 1;
+                }
+                else if (e.Location.X >= chart.Size.Width - 7)
+                {
+                    //カーソルをサイズ変更に変更
+                    System.Windows.Forms.Cursor.Current = Cursors.SizeWE;
+                    is_sizing = 2;
+                }
+                else if (e.Location.Y <= 5)
+                {
+                    //カーソルをサイズ変更に変更
+                    System.Windows.Forms.Cursor.Current = Cursors.SizeNS;
+                    is_sizing = 3;
+                }
+                else if (e.Location.Y >= chart.Size.Height - 6)
+                {
+                    //カーソルをサイズ変更に変更
+                    System.Windows.Forms.Cursor.Current = Cursors.SizeNS;
+                    is_sizing = 4;
+                }
+                if (e.Location.X <= 5 && e.Location.Y <= 5)
+                {
+                    System.Windows.Forms.Cursor.Current = Cursors.SizeNWSE;
+                    is_sizing = 5;
+                }
+                else if (e.Location.X <= 5 && e.Location.Y >= chart.Size.Height - 6)
+                {
+                    System.Windows.Forms.Cursor.Current = Cursors.SizeNESW;
+                    is_sizing = 6;
+                }
+                else if (e.Location.X >= chart.Size.Width - 7 && e.Location.Y <= 5)
+                {
+                    System.Windows.Forms.Cursor.Current = Cursors.SizeNESW;
+                    is_sizing = 7;
+                }
+                else if (e.Location.X >= chart.Size.Width - 7 && e.Location.Y >= chart.Size.Height - 6)
+                {
+                    System.Windows.Forms.Cursor.Current = Cursors.SizeNWSE;
+                    is_sizing = 8;
+                }
+
+            }
             //Console.WriteLine(e.Location.ToString());
             //どのコントロールをクリックしたか取得
             //Console.WriteLine((System.Windows.Forms.DataVisualization.Charting.Chart)sender);
@@ -124,6 +178,7 @@ namespace Stock_Checker
         private void chart2_MouseMove(object sender, MouseEventArgs e)
         {
             System.Windows.Forms.DataVisualization.Charting.Chart chart = (System.Windows.Forms.DataVisualization.Charting.Chart)sender;
+
             if (!_isDraging)
             {
                 if (is_hover)
@@ -167,11 +222,127 @@ namespace Stock_Checker
                 }
                 return;
             }
-            int x = chart.Location.X + e.X - _diffPoint.Value.X;
-            int y = chart.Location.Y + e.Y - _diffPoint.Value.Y;
-            if (x <= 0) x = 0;
-            if (y <= 0) y = 0;
-            chart.Location = new Point(x, y);
+          
+       
+            if (is_hover)
+            {
+                switch (is_sizing){
+                    case 0:
+                        int x = chart.Location.X + e.X - _diffPoint.Value.X;
+                        int y = chart.Location.Y + e.Y - _diffPoint.Value.Y;
+                        if (x <= 0) x = 0;
+                        if (y <= 0) y = 0;
+                        chart.Location = new Point(x, y);
+                        return;
+                    case 1:
+                        Console.WriteLine(e.X);
+                        //カーソルをサイズ変更に変更
+                        System.Windows.Forms.Cursor.Current = Cursors.SizeWE;
+                        int W1 = chart.Size.Width - e.X + _diffPoint.Value.X;
+                        int H1 = chart.Size.Height;
+                        if (W1 <= 10) W1 = 10;
+                        if (H1<= 10) H1 = 10;
+                        chart.Size = new Size(W1, H1);
+                        int X1 = chart.Location.X + e.X - _diffPoint.Value.X;
+                        int Y1 = chart.Location.Y;
+                        if (X1 <= 0) x = 0;
+                        if (Y1 <= 0) y = 0;
+                        chart.Location = new Point(X1, Y1);
+                        return;
+                    case 2:
+                        Console.WriteLine(_diffPoint.Value.X);
+                        //カーソルをサイズ変更に変更
+                        System.Windows.Forms.Cursor.Current = Cursors.SizeWE;
+                        int W2 =  e.X;
+                        int H2 = chart.Size.Height;
+                        if (W2 <= 10) W2 = 10;
+                        if (H2 <= 10) H2 = 10;
+                        chart.Size = new Size(W2, H2);
+                        return;
+                    case 3:
+                        //カーソルをサイズ変更に変更
+                        System.Windows.Forms.Cursor.Current = Cursors.SizeNS;
+                        int W3 = chart.Size.Width;
+                        int H3 = chart.Size.Height - e.Y + _diffPoint.Value.Y;
+                        if (W3 <= 10) W3 =10;
+                        if (H3 <= 10) H3 = 10;
+                        chart.Size = new Size(W3, H3);
+                        int X3 = chart.Location.X;
+                        int Y3 = chart.Location.Y + e.Y - _diffPoint.Value.Y;
+                        if (X3 <= 0) x = 0;
+                        if (Y3 <= 0) y = 0;
+                        chart.Location = new Point(X3, Y3); 
+                        return;
+                    case 4:
+                        //カーソルをサイズ変更に変更
+                        System.Windows.Forms.Cursor.Current = Cursors.SizeNS;
+                        int W4 = chart.Size.Width;
+                        int H4 = e.Y;
+                        if (W4 <= 10) W4 =10;
+                        if (H4 <= 10) H4 = 10;
+                        chart.Size = new Size(W4, H4);
+                        int X4 = chart.Location.X + e.X - _diffPoint.Value.X;
+                        return;
+                    case 5:
+                        //カーソルをサイズ変更に変更
+                        System.Windows.Forms.Cursor.Current = Cursors.SizeNWSE;
+                        int W5 = chart.Size.Width - e.X + _diffPoint.Value.X;
+                        int H5 = chart.Size.Height - e.Y + _diffPoint.Value.Y;
+                        if (W5 <= 10) W5 =10;
+                        if (H5 <= 10) H5 = 10;
+                        chart.Size = new Size(W5, H5);
+                        int X5 = chart.Location.X + e.X - _diffPoint.Value.X;
+                        int Y5 = chart.Location.Y + e.Y - _diffPoint.Value.Y;
+                        if (X5 <= 0) x = 0;
+                        if (Y5 <= 0) y = 0;
+                        chart.Location = new Point(X5, Y5); 
+                        return;
+                    case 6:
+                        //カーソルをサイズ変更に変更
+                        System.Windows.Forms.Cursor.Current = Cursors.SizeNESW;
+                        int W6= chart.Size.Width - e.X + _diffPoint.Value.X;
+                        int H6 =   e.Y ;
+                        if (W6 <= 10) W6 = 10;
+                        if (H6 <= 10) H6 = 10;
+                        chart.Size = new Size(W6, H6);
+                        int X6 = chart.Location.X + e.X - _diffPoint.Value.X;
+                        int Y6 = chart.Location.Y;
+                        if (X6 <= 0) x = 0;
+                        if (Y6 <= 0) y = 0;
+                        chart.Location = new Point(X6, Y6); 
+                        return;
+                    case 7:
+                        //カーソルをサイズ変更に変更
+                        System.Windows.Forms.Cursor.Current = Cursors.SizeNESW;
+                        int W7 =  e.X;
+                        int H7 = chart.Size.Height - e.Y + _diffPoint.Value.Y;
+                        if (W7 <= 10) W7 = 10;
+                        if (H7 <= 10) H7 = 10;
+                        chart.Size = new Size(W7, H7);
+                        int X7 = chart.Location.X;
+                        int Y7 = chart.Location.Y + e.Y - _diffPoint.Value.Y;
+                        if (X7 <= 0) x = 0;
+                        if (Y7 <= 0) y = 0;
+                        chart.Location = new Point(X7, Y7); 
+                        return;
+                    case 8:
+                        //カーソルをサイズ変更に変更
+                        System.Windows.Forms.Cursor.Current = Cursors.SizeNWSE;
+                        int W8 = e.X;
+                        int H8 = e.Y;
+                        if (W8 <= 10) W8 = 10;
+                        if (H8 <= 10) H8 = 10;
+                        chart.Size = new Size(W8, H8);
+                        int X8 = chart.Location.X;
+                        int Y8 = chart.Location.Y;
+                        if (X8 <= 0) x = 0;
+                        if (Y8 <= 0) y = 0;
+                        chart.Location = new Point(X8, Y8); 
+                        return;
+                }
+
+            }
+           
         }
 
         private void chart2_MouseHover(object sender, EventArgs e)
@@ -185,8 +356,10 @@ namespace Stock_Checker
         private void chart2_MouseUp(object sender, MouseEventArgs e)
         {
             _isDraging = false;
+            is_sizing = 0;
+            //元に戻すのための状態遷移の配列管理
+            change_list();     
         }
-
         private void 保存ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //Dictionaryを作成
@@ -209,7 +382,7 @@ namespace Stock_Checker
                 System.Windows.Forms.DataVisualization.Charting.Series series= chart.Series[0];
                 //Console.WriteLine(series.Name);
                 //Console.WriteLine(series.Legend);
-                string data = series.Name.ToString() + "," + series.Legend.ToString() + "," + chart.Text+","+chart.Location.X+","+chart.Location.Y;
+                string data = series.Name.ToString() + "," + series.Legend.ToString() + "," + chart.Text+","+chart.Location.X+","+chart.Location.Y+","+chart.Size.Width+","+chart.Size.Height;
                 int num = graphs.Count();
 
                 //追加
@@ -229,6 +402,34 @@ namespace Stock_Checker
             chart2.Remove(Chart);
             Chart.Dispose();
             howmany--;
+            Chart = null;
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Chart!=null)
+            {
+                if (e.KeyCode == Keys.Delete)
+                {
+                    削除ToolStripMenuItem_Click(Chart, null);
+                }
+            }
+        }
+
+        private void 元に戻すToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void 複製ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //コピー
+        }
+
+        private void 切り取りToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //切り取り
+
         }
     }
 }
