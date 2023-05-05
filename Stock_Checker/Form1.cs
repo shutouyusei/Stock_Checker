@@ -18,13 +18,33 @@ namespace Stock_Checker
     {
 
         [System.Runtime.InteropServices.DllImport("kernel32.dll")] // この行を追加
-        private static extern bool AllocConsole();                 // この行を追加
+        private static extern bool AllocConsole();
+        // この行を追加
+        List<string>[] change_chart = new List<string>[20];
         public Form1()
         {
             InitializeComponent();
             // チャートの表示を初期化
             AllocConsole(); //デバック用
             ShowGraph();
+            for (int i = 0; i < 20; i++)
+            {
+                change_chart[i] = new List<string>();
+            }
+            foreach (Chart chart in chart2)
+            {
+                //chartの座標を記録
+                //chart.Location.X
+                //chart.Location.Y
+                //Json形式でchart1の情報を出力
+                //code, text,Y,series
+
+                System.Windows.Forms.DataVisualization.Charting.Series series = chart.Series[0];
+                //Console.WriteLine(series.Name);
+                //Console.WriteLine(series.Legend);
+                string data = series.Name.ToString() + "," + series.Legend.ToString() + "," + chart.Text + "," + chart.Location.X + "," + chart.Location.Y + "," + chart.Size.Width + "," + chart.Size.Height;
+                change_chart[0].Add(data);
+            }
         }
         //chartを作成
         private void Form1_Load(object sender, EventArgs e)
@@ -98,8 +118,7 @@ namespace Stock_Checker
         Chart Chart;
         bool is_hover = false;
         int is_sizing = 0;
-       List<string>[] change_chart =new List<string>[20];
-        int change = 0;
+        int change = 1;
 
 
 
@@ -108,8 +127,7 @@ namespace Stock_Checker
         {
             if (change <= 19)
             {
-                change_chart[change] = new List<string>();
-
+                change_chart[change].Clear();
                 foreach (Chart chart in chart2)
                 {
                     //chartの座標を記録
@@ -121,7 +139,7 @@ namespace Stock_Checker
                     System.Windows.Forms.DataVisualization.Charting.Series series = chart.Series[0];
                     //Console.WriteLine(series.Name);
                     //Console.WriteLine(series.Legend);
-                    string data = series.Name.ToString() + "," + series.Legend.ToString() + "," + chart.Text + "," + chart.Location.X + "," + chart.Location.Y + "," + chart.Size.Width + "," + chart.Size.Height;                   
+                    string data = series.Name.ToString() + "," + series.Legend.ToString() + "," + chart.Text + "," + chart.Location.X + "," + chart.Location.Y + "," + chart.Size.Width + "," + chart.Size.Height;
                     change_chart[change].Add(data);
                 }
                     change++;
@@ -129,12 +147,15 @@ namespace Stock_Checker
             }
             else
             {
-                for(int i=0; i<19; i++) 
+                for (int i=0; i<19; i++)
                 {
-                    change_chart[i] = change_chart[i + 1]; 
+                    change_chart[i] = change_chart[i + 1];
                 }
+                change_chart[19]=new List<string>();
+                Console.WriteLine("ss");
                 foreach (Chart chart in chart2)
                 {
+
                     //chartの座標を記録
                     //chart.Location.X
                     //chart.Location.Y
@@ -148,9 +169,6 @@ namespace Stock_Checker
                     change_chart[19].Add(data);
                 }
             }
-            Console.WriteLine(change_chart[0][0]);
-            if (change > 1) { Console.WriteLine(change_chart[1][0]); }
-            
         }
         private void chart2_MouseDown(object sender, MouseEventArgs e)
         {
@@ -160,7 +178,7 @@ namespace Stock_Checker
             {
                 //formの左端の座標
                 contextMenuStrip1.Show(chart.Location.X+e.Location.X+30 + this.Location.X, chart.Location.Y + e.Location.Y + this.Location.Y);
-              
+
                 return;
             }
             //サイズ変更
@@ -271,8 +289,8 @@ namespace Stock_Checker
                 }
                 return;
             }
-          
-       
+
+
             if (is_hover)
             {
                 switch (is_sizing){
@@ -320,7 +338,7 @@ namespace Stock_Checker
                         int Y3 = chart.Location.Y + e.Y - _diffPoint.Value.Y;
                         if (X3 <= 0) x = 0;
                         if (Y3 <= 0) y = 0;
-                        chart.Location = new Point(X3, Y3); 
+                        chart.Location = new Point(X3, Y3);
                         return;
                     case 4:
                         //カーソルをサイズ変更に変更
@@ -344,7 +362,7 @@ namespace Stock_Checker
                         int Y5 = chart.Location.Y + e.Y - _diffPoint.Value.Y;
                         if (X5 <= 0) x = 0;
                         if (Y5 <= 0) y = 0;
-                        chart.Location = new Point(X5, Y5); 
+                        chart.Location = new Point(X5, Y5);
                         return;
                     case 6:
                         //カーソルをサイズ変更に変更
@@ -358,7 +376,7 @@ namespace Stock_Checker
                         int Y6 = chart.Location.Y;
                         if (X6 <= 0) x = 0;
                         if (Y6 <= 0) y = 0;
-                        chart.Location = new Point(X6, Y6); 
+                        chart.Location = new Point(X6, Y6);
                         return;
                     case 7:
                         //カーソルをサイズ変更に変更
@@ -372,7 +390,7 @@ namespace Stock_Checker
                         int Y7 = chart.Location.Y + e.Y - _diffPoint.Value.Y;
                         if (X7 <= 0) x = 0;
                         if (Y7 <= 0) y = 0;
-                        chart.Location = new Point(X7, Y7); 
+                        chart.Location = new Point(X7, Y7);
                         return;
                     case 8:
                         //カーソルをサイズ変更に変更
@@ -386,12 +404,12 @@ namespace Stock_Checker
                         int Y8 = chart.Location.Y;
                         if (X8 <= 0) x = 0;
                         if (Y8 <= 0) y = 0;
-                        chart.Location = new Point(X8, Y8); 
+                        chart.Location = new Point(X8, Y8);
                         return;
                 }
 
             }
-           
+
         }
 
         private void chart2_MouseHover(object sender, EventArgs e)
@@ -407,7 +425,7 @@ namespace Stock_Checker
             _isDraging = false;
             is_sizing = 0;
             //元に戻すのための状態遷移の配列管理
-            change_list();     
+            change_list();
         }
         private void 保存ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -467,15 +485,26 @@ namespace Stock_Checker
 
         private void 元に戻すToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (change >= 1)
+            if (change >= 2)
             {
-                this.Chart.Dispose();
-                foreach (string ch in change_chart[change-1])
+                //chartをすべて削除
+                foreach (Chart chart in chart2)
+                {
+                    chart.Dispose();
+                }
+                chart2.Clear();
+                howmany=0;
+                foreach (string ch in change_chart[change-2])
                 {
                     //appear(ch);
-                    Console.WriteLine(ch);
-                    change--;
+                    //    Console.WriteLine("{0}", item.Key);
+                    //    Console.WriteLine("{0}", item.Value);
+                    //item.Valueを","で分割"
+                    string[] values = ch.Split(',');
+                    //Console.WriteLine(values[0]);
+                    call_show(values[0], values[1], values[2], values[3], values[4], values[5], values[6]);
                 }
+                change--;
             }
         }
 
