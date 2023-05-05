@@ -37,6 +37,10 @@ namespace Stock_Checker
         int X = 100;
         //何回呼ばれたか
         int howmany = 0;
+        void appear(Chart chart)
+        {
+            this.Controls.Add(chart);
+        }
         void ShowGraph(string[] Y, string series, string code, string text,int x,int y,int W,int H)
         {
             //チャートを追加
@@ -85,7 +89,7 @@ namespace Stock_Checker
                 chart2[howmany].Series[series].Points.AddXY(date[i], Y[i]);
             }
             //windowsフォームチャートを表示
-            this.Controls.Add(this.chart2[howmany]);
+            appear(chart2[howmany]);
             //Console.WriteLine(this.Controls.Count);
             Console.WriteLine(howmany);
             Console.WriteLine(chart2[howmany].Text);
