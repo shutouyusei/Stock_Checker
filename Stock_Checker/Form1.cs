@@ -260,11 +260,11 @@ namespace Stock_Checker
             //Console.WriteLine(e.Location.ToString());
             //Console.WriteLine(chart.Size.Width);
         }
+        bool is_changed = false;
 
         private void chart2_MouseMove(object sender, MouseEventArgs e)
         {
             System.Windows.Forms.DataVisualization.Charting.Chart chart = (System.Windows.Forms.DataVisualization.Charting.Chart)sender;
-
             if (!_isDraging)
             {
                 if (is_hover)
@@ -312,6 +312,7 @@ namespace Stock_Checker
 
             if (is_hover)
             {
+                is_changed = true;
                 switch (is_sizing){
                     case 0:
                         int x = chart.Location.X + e.X - _diffPoint.Value.X;
@@ -443,8 +444,12 @@ namespace Stock_Checker
         {
             _isDraging = false;
             is_sizing = 0;
-            //元に戻すのための状態遷移の配列管理
-            change_list();
+            //元に戻すのための状態遷移の配列管理]
+            if (is_changed)
+            {
+                change_list();
+                is_changed = false;
+            }
         }
         private void 保存ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -581,6 +586,7 @@ namespace Stock_Checker
             Chart.Dispose();
             howmany--;
             Chart = null;
+            change_list();
         }
 
         private void やり直しToolStripMenuItem_Click(object sender, EventArgs e)
