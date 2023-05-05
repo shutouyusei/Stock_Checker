@@ -502,8 +502,6 @@ namespace Stock_Checker
                     }
                 }
             }
-            else
-            {
                 if (e.Control)
                 {
                     switch (e.KeyCode)
@@ -513,7 +511,6 @@ namespace Stock_Checker
                             break;
                     }
                 }
-            }
         }
         int changed= 0;
         private void 元に戻すToolStripMenuItem_Click(object sender, EventArgs e)
@@ -597,12 +594,9 @@ namespace Stock_Checker
                 changed--;
             }
         }
-        int right_click_x ;
-        int right_click_y ;
+
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
-            right_click_x = e.Location.X;
-            right_click_y = e.Location.Y;
             if (e.Button == MouseButtons.Right)
             {
                 //formの左端の座標
@@ -616,14 +610,24 @@ namespace Stock_Checker
             string clip=Clipboard.GetText();
             //Console.WriteLine("----");
             //Console.WriteLine(clip);
-            string[] values = clip.Split(',');
+            try
+            {
+                string[] values = clip.Split(',');
+                call_show(values[0], values[1], values[2], (System.Windows.Forms.Cursor.Position.X - Int32.Parse(values[5]) / 2).ToString(), (System.Windows.Forms.Cursor.Position.Y - Int32.Parse(values[6]) / 2).ToString(), values[5], values[6]);
+                change_list();
+            }
+            catch
+            {
+                //graphのテキスト以外の処理
+
+                return;
+            }
             //Console.WriteLine(values[0]);
             //Console.WriteLine(right_click_x + Int32.Parse(values[5]) / 2);
             //Console.WriteLine(right_click_y + Int32.Parse(values[6]) / 2);
             //Console.WriteLine(right_click_x);
             //Console.WriteLine(right_click_y);
-            call_show(values[0], values[1], values[2], (System.Windows.Forms.Cursor.Position.X - Int32.Parse(values[5]) / 2).ToString(), (System.Windows.Forms.Cursor.Position.Y - Int32.Parse(values[6]) / 2).ToString(), values[5], values[6]);
-            change_list();
+
         }
 
 
