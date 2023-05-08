@@ -73,7 +73,7 @@ namespace Stock_Checker
             //チャートエリアの作成
             chart2[howmany].ChartAreas.Add("ChartArea1");
             //グラフタイトルの作成
-            chart2[howmany].Titles.Add(text);
+            chart2[howmany].Titles.Add(text+"_"+code);
             //グラフの種類を指定    
             chart2[howmany].Series.Add(series);
             chart2[howmany].Series[series].BorderWidth = 2 - X / 100;
@@ -138,19 +138,22 @@ namespace Stock_Checker
         {
             this.components = new System.ComponentModel.Container();
             this.button1 = new System.Windows.Forms.Button();
-            this.Stock_code_text = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.編集ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.追加ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.元に戻すToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.やり直しToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.削除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.複製ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.切り取りToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.元に戻すToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.やり直しToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.貼り付けToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
+            this.contextMenuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -160,19 +163,9 @@ namespace Stock_Checker
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
+            this.button1.Text = "OK";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // Stock_code_text
-            // 
-            this.Stock_code_text.AllowDrop = true;
-            this.Stock_code_text.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Stock_code_text.Location = new System.Drawing.Point(1711, 31);
-            this.Stock_code_text.MaxLength = 4;
-            this.Stock_code_text.Name = "Stock_code_text";
-            this.Stock_code_text.Size = new System.Drawing.Size(100, 19);
-            this.Stock_code_text.TabIndex = 1;
             // 
             // menuStrip1
             // 
@@ -198,7 +191,7 @@ namespace Stock_Checker
             // 追加ToolStripMenuItem
             // 
             this.追加ToolStripMenuItem.Name = "追加ToolStripMenuItem";
-            this.追加ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.追加ToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.追加ToolStripMenuItem.Text = "追加";
             this.追加ToolStripMenuItem.Click += new System.EventHandler(this.追加ToolStripMenuItem_Click);
             // 
@@ -207,9 +200,25 @@ namespace Stock_Checker
             this.保存ToolStripMenuItem.Name = "保存ToolStripMenuItem";
             this.保存ToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+s";
             this.保存ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.保存ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.保存ToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.保存ToolStripMenuItem.Text = "保存";
             this.保存ToolStripMenuItem.Click += new System.EventHandler(this.保存ToolStripMenuItem_Click);
+            // 
+            // 元に戻すToolStripMenuItem
+            // 
+            this.元に戻すToolStripMenuItem.Name = "元に戻すToolStripMenuItem";
+            this.元に戻すToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.元に戻すToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.元に戻すToolStripMenuItem.Text = "元に戻す";
+            this.元に戻すToolStripMenuItem.Click += new System.EventHandler(this.元に戻すToolStripMenuItem_Click);
+            // 
+            // やり直しToolStripMenuItem
+            // 
+            this.やり直しToolStripMenuItem.Name = "やり直しToolStripMenuItem";
+            this.やり直しToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
+            this.やり直しToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.やり直しToolStripMenuItem.Text = "やり直し";
+            this.やり直しToolStripMenuItem.Click += new System.EventHandler(this.やり直しToolStripMenuItem_Click);
             // 
             // contextMenuStrip1
             // 
@@ -218,51 +227,67 @@ namespace Stock_Checker
             this.複製ToolStripMenuItem,
             this.切り取りToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(155, 70);
             // 
             // 削除ToolStripMenuItem
             // 
             this.削除ToolStripMenuItem.Name = "削除ToolStripMenuItem";
             this.削除ToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.削除ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.削除ToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.削除ToolStripMenuItem.Text = "削除";
             this.削除ToolStripMenuItem.Click += new System.EventHandler(this.削除ToolStripMenuItem_Click);
             // 
             // 複製ToolStripMenuItem
             // 
             this.複製ToolStripMenuItem.Name = "複製ToolStripMenuItem";
-            this.複製ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.複製ToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.複製ToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.複製ToolStripMenuItem.Text = "複製";
             this.複製ToolStripMenuItem.Click += new System.EventHandler(this.複製ToolStripMenuItem_Click);
             // 
             // 切り取りToolStripMenuItem
             // 
             this.切り取りToolStripMenuItem.Name = "切り取りToolStripMenuItem";
-            this.切り取りToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.切り取りToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
+            this.切り取りToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.切り取りToolStripMenuItem.Text = "切り取り";
             this.切り取りToolStripMenuItem.Click += new System.EventHandler(this.切り取りToolStripMenuItem_Click);
             // 
-            // 元に戻すToolStripMenuItem
+            // contextMenuStrip2
             // 
-            this.元に戻すToolStripMenuItem.Name = "元に戻すToolStripMenuItem";
-            this.元に戻すToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.元に戻すToolStripMenuItem.Text = "元に戻す";
-            this.元に戻すToolStripMenuItem.Click += new System.EventHandler(this.元に戻すToolStripMenuItem_Click);
+            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.貼り付けToolStripMenuItem});
+            this.contextMenuStrip2.Name = "contextMenuStrip1";
+            this.contextMenuStrip2.Size = new System.Drawing.Size(156, 26);
             // 
-            // やり直しToolStripMenuItem
+            // 貼り付けToolStripMenuItem
             // 
-            this.やり直しToolStripMenuItem.Name = "やり直しToolStripMenuItem";
-            this.やり直しToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.やり直しToolStripMenuItem.Text = "やり直し";
+            this.貼り付けToolStripMenuItem.Name = "貼り付けToolStripMenuItem";
+            this.貼り付けToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
+            this.貼り付けToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.貼り付けToolStripMenuItem.Text = "貼り付け";
+            this.貼り付けToolStripMenuItem.Click += new System.EventHandler(this.貼り付けToolStripMenuItem_Click);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(1679, 30);
+            this.comboBox1.MaxLength = 4;
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 20);
+            this.comboBox1.TabIndex = 4;
+            this.comboBox1.Text = "銘柄コード";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
-            this.Controls.Add(this.Stock_code_text);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.menuStrip1);
+            this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(500, 300);
@@ -271,9 +296,11 @@ namespace Stock_Checker
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
+            this.contextMenuStrip2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -281,7 +308,6 @@ namespace Stock_Checker
 
         #endregion    
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox Stock_code_text;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 編集ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 追加ToolStripMenuItem;
@@ -293,5 +319,8 @@ namespace Stock_Checker
         private System.Windows.Forms.ToolStripMenuItem やり直しToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 複製ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 切り取りToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
+        private System.Windows.Forms.ToolStripMenuItem 貼り付けToolStripMenuItem;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

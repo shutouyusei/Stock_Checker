@@ -75,9 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddGraph.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Get_stock.cs" />
     <Compile Include="Graph.cs">
       <SubType>Form</SubType>
     </Compile>
